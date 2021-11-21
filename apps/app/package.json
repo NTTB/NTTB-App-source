@@ -1,0 +1,22 @@
+{
+  "name": "nttb-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NTTB/NTTB-App-source.git"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/NTTB/NTTB-App-source/issues"
+  },
+  "homepage": "https://github.com/NTTB/NTTB-App-source#readme",
+  "devDependencies": {
+    "typescript": "^4.5.2"
+  }
+}
