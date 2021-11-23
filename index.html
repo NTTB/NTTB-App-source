@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="nl" class="md">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="initial-scale=1,maximum-scale=1,user-scalable=no,width=device-width height=device-height">
+    <meta http-equiv="Content-Security-Policy" content="connect-src *">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://www.nttb-ranglijsten.nl/vendors/bootstrap/css/bootstrap.min.css">
+	
+	<!-- cordova CSS -->
+    <link id="theme" rel="stylesheet" href="./css/index.css" type="text/css">
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="./fonts/materializeicon/material-design-icons.css">
+
+
+    <!-- app CSS -->
+    <link id="dwf_css" rel="stylesheet" href="./css/style.css" type="text/css">
+    <link id="fonts_css" rel="stylesheet" href="./css/fonts.css" type="text/css">
+
+
+    <!-- jQuery first then Bootstrap JS -->
+    <script src="https://www.nttb-ranglijsten.nl/vendors/jquery/jquery.min.js"></script>
+    <script src="https://www.nttb-ranglijsten.nl/vendors/bootstrap/js/bootstrap.min.js"></script>
+
+
+
+    <title>DWF</title>
+</head>
+
+<body class="startimg">
+    <div id="base_total" class="wrapper">
+
+        <!-- sidebar right start -->
+        <div class="sidebar sidebar-right pt-3">
+            <header class="row m-0 fixed-header no-shadow" style="background-color:white;">
+                <div class="left">
+                    <div onclick="$('body').toggleClass('menu-right-open')" class="menu-right-close mt-1 ml-1">
+                        <i class="material-icons tbt" style="color:#10069F;">arrow_forward</i>&nbsp;<span
+                            style="line-height:1.5;color:#10069F;margin-top:.8rem;">&nbsp;&nbsp;&nbsp;Menu
+                            sluiten</span>
+                    </div>
+
+                </div>
+            </header>
+            <div class="page-content text-white" style="position:relative;padding-top:50px;">
+
+                <div class="card bg-none border-0 shadow-none">
+                    <div id="menu_more"></div>
+                </div>
+                <div id="help" style="display:block;" class="help">
+                    <!--help-->
+                </div>
+                <div class="profile-link text-center">
+                    <button onclick="click_signonoff()" type="button" id="loginout-btn"
+                        class="btn bt-login btn-radius"></button>
+                </div>
+
+                <div class="profile-link text-center">
+                    <button onclick="location.href='mailto:DWF@tafeltennis.nl';" type="button" id="e-vraag-btn"
+                        class="btn btn-secondary w-100 btn-radius"><i
+                            class="icon material-icons">email</i>&nbsp;&nbsp;stuur een vraag</button>
+                </div>
+
+            </div>
+            <div style="margin-left:1rem;position:absolute;bottom:0px;right:10px;background-color:white;" id="version"
+                onclick="update_text_view()">
+                <!--version-->
+            </div>
+        </div>
+        <!-- sidebar right ends -->
+
+
+        <!-- page main start -->
+        <div class="page">
+            <div id="content" class="page-content">
+                <!--place for content-->
+            </div>
+        </div>
+        <!-- page main ends -->
+
+
+        <!-- publish modal start -->
+        <div class="modal fade " id="publish" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" style="padding-top: 50px;" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div id="w_today">
+                            <h5 id="w_today_header" class="modal-title">Geen wedstrijden vandaag!</h5>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div id="w_today_div" class="modal-body text-left"></div>
+                    <div id="w_today_foot" class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+        <!-- publish modal ends -->
+
+    </div>
+
+    <!-- scoreboard place -->
+    <div id="sb_total" style="display:none"></div>
+
+
+
+    <!-- Other jquery file -->
+
+    <!-- page specific script -->
+    <script type="text/javascript" src="./js/main_open.js"></script>
+    <script type="text/javascript" src="./js/gdpr.js"></script>
+	<script>page_gdpr();</script>
+   
+</body>
+
+</html>
