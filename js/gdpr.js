@@ -54,7 +54,7 @@ function page_gdpr() {
     arrow_menu = "Privacy";
 	$("#content").html(page_gdpr_html); // load html
     $("#help").html(help_gdpr); // load help
-    //nav_left("Privacy"); // deactivate menu Privacy
+    nav_left("Privacy"); // deactivate menu Privacy
     update_profile(true); // update fl_aconsent status
     if (fl_aconsent) {
         $("#avg_consent").show();

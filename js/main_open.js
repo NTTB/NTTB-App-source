@@ -36,14 +36,45 @@ var profile_set = {
   
 };
 
+var today;
+var dt_sql;
+var dt_sys;
+var dt_year;
+var dt_month;
+var dt_day;
+
+// when is app ready **********************/
+var debug_date = new Date();
+dt_sys = new Date(debug_date);
+dt_year = dt_sys.getFullYear();
+dt_month = dt_sys.getMonth() + 1;
+dt_day = dt_sys.getDate();
+dt_sql = dt_sys.toISOString().split("T")[0];
+today = dt_sql;
+/******************************************/
+
 var api_url = "";
 var arrow_menu = "";
 var fl_aconsent = true; //if 18 year and older consent is active
+var fl_sp_rss = true;
+
 function update_profile(fl){
 	if(fl) mng_gdpr_b();
 }
 
 function arrow_ini(){
+	return true; // open-source test responce
+}
+
+function nav_left(active) {
+	return true; // open-source test responce
+}
+
+function arrow_back(a) {
+	return true; // open-source test responce
+}
+
+function arrow_return() {
 	return true; // open-source test responce
 }
 
