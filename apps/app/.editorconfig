@@ -1,3 +1,7 @@
-[*.css]
+[*.{css,html,js,ts}]
+tab_width = 2
+indent_style = space
+
+[*.svelte]
 tab_width = 2
 indent_style = space

@@ -1,15 +1,3 @@
-/*********************************************************************************************
-
-program: NTTB App
-name: gdpr
-type: JS
-version: 0.1
-date: 2021-11-14
-description: store and recive gdpr consents
-author: JOFTT
-
-************************************************************************************************/
-
 function click_privacy() {
     if (fl_aconsent) {
         let gdpr = "";
