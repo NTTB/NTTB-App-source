@@ -20,6 +20,9 @@
   let checkG = false; // 7
   let checkH = false; // 8
 
+  let hasMatches = false;
+  let hasNttbFunction = false;
+
   async function click_privacy() {
     if (!(await Profile.can("changeGdpr"))) return;
     let gdpr = "";
@@ -44,7 +47,7 @@
     }
   }
 
-  function updatePageMenu(){
+  function updatePageMenu() {
     // TODO: This part should realy be moved out of it.
     PageMenu.close();
     if (PageMenu.currentPage === "Privacy") return; // Don't re-initalize
@@ -52,12 +55,14 @@
     PageMenu.currentPage = "Privacy";
   }
 
-  async function onLoad() {
+  async function onComponentShow() {
     console.log("Component has been created");
     updatePageMenu();
-    
+
     await Profile.refreshFromServer(); // TODO: Why are we refreshing here?
-    
+
+    checkB = hasNttbFunction || hasMatches;
+
     // Update the checks
     checkA = Profile.gdpr.includes("a");
     checkB = Profile.gdpr.includes("b");
@@ -68,17 +73,16 @@
     checkG = Profile.gdpr.includes("g");
     checkH = Profile.gdpr.includes("h");
 
-    // Enable functionality
-    if (await Profile.can("changeGdpr")) {
-      showSaveButton = true;
-    } else {
-      showAge16Warning = true;
-      showSaveButton = false;
+    hasNttbFunction = await Profile.hasNttbFunction();
+    hasMatches = await Profile.hasMatches();
+    if (hasNttbFunction || hasMatches) {
+      checkB = true;
     }
+
+    showSaveButton = await Profile.can("changeGdpr");
   }
 
-  onLoad();
-  
+  onComponentShow();
 </script>
 
 <div id="m_rght">
@@ -167,17 +171,29 @@
     </div>
 
     <div class="mt-2">
-      <strong>B)</strong> <span id="anonimous_avg" />
+      <strong>B)</strong>
+      {#if hasMatches || hasNttbFunction}
+        Omdat u in een NTTB-competitie of NTTB-toernooi hebt gespeeld of binnen
+        de NTTB een functie (hebt) bekleed, kunt u niet anoniem zijn op de
+        gepubliceerde websites, apps en sociale media van de NTTB.
+      {:else}
+        Indien u geen functie binnen de NTTB bekleedt of hebt bekleedt of geen
+        resultaten hebt behaald in competities en/of toernooien, en u op
+        websites, apps en sociale media van de NTTB anoniem wenst te blijven
+        kunt u dat hier aangeven.
+      {/if}
     </div>
     <div class="gdpr_hr">
-      <input
-        style="display:none"
-        type="checkbox"
-        class="form-control"
-        name="i"
-        id="privacy2"
-        bind:checked={checkB}
-      />
+      {#if !(hasMatches || hasNttbFunction)}
+        <input
+          style="display:none"
+          type="checkbox"
+          class="form-control"
+          name="i"
+          id="privacy2"
+          bind:checked={checkB}
+        />
+      {/if}
     </div>
 
     <div class="mt-2">

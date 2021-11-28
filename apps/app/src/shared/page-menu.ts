@@ -1,4 +1,5 @@
 type PageMenuNav = "Home" | "Privacy" | "Ledenpas" | "Scoreboard" | "Oefeningen" | "Planning" | "NTTB";
+declare function $(...args);
 
 class PageMenuImpl {
   private _currentPage: PageMenuNav = "Home";
@@ -15,13 +16,13 @@ class PageMenuImpl {
   }
 
   close() {
-    // $("body").toggleClass("menu-right-open"); // close menu
-    console.warn("PageMenuImpl.close() -- Not implemented");
+    $("body").toggleClass("menu-right-open"); // close menu
+    // console.warn("PageMenuImpl.close() -- Not implemented");
   }
 
   open() {
-    // $("body").toggleClass("menu-right-open"); // close menu
-    console.warn("PageMenuImpl.open() -- Not implemented");
+    $("body").toggleClass("menu-right-open"); // open menu
+    // console.warn("PageMenuImpl.open() -- Not implemented");
   }
 }
 

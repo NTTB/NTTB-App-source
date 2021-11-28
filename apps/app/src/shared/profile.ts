@@ -37,6 +37,10 @@ class ProfileImpl implements ProfileData {
     return Promise.resolve(true);
   }
 
+  hasNttbFunction(): Promise<boolean> {
+    return Promise.resolve<boolean>(true);
+  }
+
   refreshFromServer(): Promise<void> {
     // Originally: `update_profile(true); // update fl_aconsent status`
     // Without `true` it will only update it once a day
