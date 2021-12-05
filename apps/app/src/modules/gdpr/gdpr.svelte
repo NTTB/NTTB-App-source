@@ -5,6 +5,7 @@
 
   let showAge16Warning = false;
   let showSaveButton = false;
+  let ready = false;
 
   let checkA = false; // 1
   let checkB = false; // 2
@@ -33,7 +34,7 @@
     await GdprApi.update(gdpr);
   }
 
-  async function onComponentShow() {
+  async function mng_gdpr_b() {
     // Update the checks
     checkA = Profile.gdpr.includes("a");
     checkB = Profile.gdpr.includes("b");
@@ -54,11 +55,13 @@
     }
 
     showSaveButton = await Profile.can("changeGdpr");
+    ready = true;
   }
 
-  onComponentShow();
+  (window as any).mng_gdpr_b = mng_gdpr_b;
 </script>
 
+{#if ready}
 <div id="m_rght">
   <a
     href="#"
@@ -283,3 +286,4 @@
   </div>
   <!--privacy end-->
 </div>
+{/if}

@@ -55,10 +55,10 @@ function page_gdpr() {
   update_profile(true); // update fl_aconsent status
 }
 
-function mng_gdpr_b() {
-  // TODO: Remove this function once `update_profile(true)` can wait with updating.
-  // Original intent: Update the gdpr values
-}
+// function mng_gdpr_b() {
+//   // TODO: Remove this function once `update_profile(true)` can wait with updating.
+//   // Original intent: Update the gdpr values
+// }
 
 
 /***************** html as const to prevent cross origin protection **************************** */

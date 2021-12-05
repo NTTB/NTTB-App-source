@@ -58,8 +58,9 @@ var arrow_menu = "";
 var fl_aconsent = true; //if 18 year and older consent is active
 var fl_sp_rss = true;
 
-function update_profile(fl){
-	if(fl) mng_gdpr_b();
+function update_profile(fl) {
+  setTimeout(() => { if (fl) mng_gdpr_b() }, 3000);
+	
 }
 
 function arrow_ini(){
