@@ -1,3 +1,12 @@
+// Status:
+// 1. 
+// Guidelines:
+// 1. Don't store data that is retrieved from the classic profile
+
+import type { ClassicProfileData } from "./classic/classic-profile";
+declare var profile_set: ClassicProfileData;
+declare var fl_aconsent: boolean;
+
 interface ProfileData {
   gdpr: string;
 }
@@ -7,20 +16,13 @@ export interface AccountFunctions {
 }
 
 class ProfileImpl implements ProfileData {
-  private _gdpr: string = "";
-  get gdpr(): string { return this._gdpr; }
-  set gdpr(v: string) { this._gdpr; this.updateCache(); }
-
-  private updateCache() {
-    var dto: ProfileData = {
-      gdpr: this.gdpr,
-    };
-
-    const json = JSON.stringify(dto);
-    localStorage.setItem("nl_dwf_profile", json);
-  }
+  get gdpr(): string { return profile_set.gdpr; }
 
   async can<T extends keyof AccountFunctions>(name: T): Promise<boolean> {
+    if (name == "changeGdpr") {
+      return fl_aconsent;
+    }
+
     const functions = await this.getFunctions();
     return functions[name];
   }
@@ -34,17 +36,17 @@ class ProfileImpl implements ProfileData {
 
   hasMatches(): Promise<boolean> {
     // Originally: `profile_set.has_results === 1`
-    return Promise.resolve(true);
+    // NOTE: Something strange in the old code.
+    // It's clear that the profile is initialized using a numeric value, however 
+    // a check in the code is done with a strict compare to a string.
+    return Promise.resolve(profile_set.has_results === 1 || profile_set.has_results as unknown === "1");
   }
 
   hasNttbFunction(): Promise<boolean> {
-    return Promise.resolve<boolean>(true);
-  }
-
-  refreshFromServer(): Promise<void> {
-    // Originally: `update_profile(true); // update fl_aconsent status`
-    // Without `true` it will only update it once a day
-    return Promise.resolve();
+    // NOTE: Something strange in the old code.
+    // It's clear that the profile is initialized using a numeric value, however 
+    // a check in the code is done with a strict compare to a string.
+    return Promise.resolve<boolean>(profile_set.has_function === 1 || profile_set.has_function as unknown === "1");
   }
 }
 

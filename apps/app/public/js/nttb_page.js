@@ -14,6 +14,7 @@ function page_nttb() {
     if (arrow_menu === "NTTB") return;
     //arrow_page('#nav-find'); // previous page set
     arrow_menu = "NTTB";
+    setPageComponent(); // Clear current component
     $("#content").html(page_nttb_html); // load html
     $("body").toggleClass("menu-right-open"); // close menu
     if (localStorage.getItem("nl_dwf_events_date") !== today) { // only once a day REST call
@@ -48,7 +49,7 @@ function sub_page_rss() {
     }
 }
 /******************************************** nttb.html ***************************************** */
-const help_nttb = `
+let help_nttb = `
 <table class="table table-sm">
 <tbody>
    <tr>
@@ -67,7 +68,7 @@ const help_nttb = `
 </table>
 `;
 
-const page_nttb_html = `
+let page_nttb_html = `
 <nav class="tabber tabber-bottom publish-tabs">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a onclick="arrow_back('#nav-nttbinfo');" class="nav-item nav-link active" id="nav-nttbinfo-tab"

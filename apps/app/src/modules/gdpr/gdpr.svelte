@@ -1,15 +1,10 @@
 <script lang="ts">
-  // NOTES:
-  // 1. I'm missing the text for `checkB`, I can see it it in the app, but not in the code.
-
   import { PageMenu } from "../../shared/page-menu";
-  import { Route } from "../../shared/route";
-  import { Notification } from "../../shared/notification";
   import { GdprApi } from "./gdpr-api";
   import { Profile } from "../../shared/profile";
 
-  let showAge16Warning = false; // Originally `$("#O16_consent")`
-  let showSaveButton = false; // Originaly `$("#avg_consent").(show|hide)()`;
+  let showAge16Warning = false;
+  let showSaveButton = false;
 
   let checkA = false; // 1
   let checkB = false; // 2
@@ -27,7 +22,7 @@
     if (!(await Profile.can("changeGdpr"))) return;
     let gdpr = "";
     if (checkA) gdpr += "a";
-    if (checkB || (await Profile.hasMatches())) gdpr += "b";
+    if (checkB) gdpr += "b";
     if (checkC) gdpr += "c";
     if (checkD) gdpr += "d";
     if (checkE) gdpr += "e";
@@ -35,34 +30,10 @@
     if (checkG) gdpr += "g";
     if (checkH) gdpr += "h";
 
-    try {
-      if (await GdprApi.update(gdpr)) {
-        Notification.showSuccess("AVG is succesvol geregistreerd!", 3000);
-        Profile.gdpr = gdpr; // Also store it in the profile
-      } else {
-        Notification.showError("Fout tijdens AVG registratie!", 3000);
-      }
-    } catch {
-      Notification.showError("Connectiefout", 3000);
-    }
-  }
-
-  function updatePageMenu() {
-    // TODO: This part should realy be moved out of it.
-    PageMenu.close();
-    if (PageMenu.currentPage === "Privacy") return; // Don't re-initalize
-    Route.push(); // Push current route on the callstack
-    PageMenu.currentPage = "Privacy";
+    await GdprApi.update(gdpr);
   }
 
   async function onComponentShow() {
-    console.log("Component has been created");
-    updatePageMenu();
-
-    await Profile.refreshFromServer(); // TODO: Why are we refreshing here?
-
-    checkB = hasNttbFunction || hasMatches;
-
     // Update the checks
     checkA = Profile.gdpr.includes("a");
     checkB = Profile.gdpr.includes("b");
@@ -77,6 +48,9 @@
     hasMatches = await Profile.hasMatches();
     if (hasNttbFunction || hasMatches) {
       checkB = true;
+    }
+    if (hasNttbFunction) {
+      checkF = true;
     }
 
     showSaveButton = await Profile.can("changeGdpr");
@@ -197,20 +171,6 @@
     </div>
 
     <div class="mt-2">
-      <strong>C)</strong> Mij benaderen voor onderzoeken in het belang van leden
-      van de NTTB.
-    </div>
-    <div class="gdpr_hr">
-      <input
-        type="checkbox"
-        class="form-control"
-        name="privacy3"
-        id="privacy3"
-        bind:checked={checkC}
-      />
-    </div>
-
-    <div class="mt-2">
       <strong>D)</strong> Publiceren van foto’s/afbeeldingen en films van mij op
       websites, apps en sociale media van de NTTB of van organisaties waar de NTTB
       mee samenwerkt. Dit geldt ook voor foto’s/afbeeldingen en films waarop ook
@@ -244,19 +204,29 @@
       />
     </div>
 
-    <div class="mt-2">
-      <strong>F)</strong> Het opnemen van mijn pasfoto of teamfoto op de website
-      van de NTTB of organisaties waar de NTTB mee samenwerkt.
-    </div>
-    <div class="gdpr_hr">
-      <input
-        type="checkbox"
-        class="form-control"
-        name="privacy6"
-        id="privacy6"
-        bind:checked={checkF}
-      />
-    </div>
+    {#if hasNttbFunction}
+      <div class="mt-2">
+        <strong>F)</strong> Omdat u een functie (hebt) uitoefenen binnen de NTTB,
+        zoals bijvoorbeeld bestuursleden, bondsraadleden, commissieleden en werkgroepleden,
+        gebruiken wij uw persoonsgegevens en uw foto om uw functie zichtbaar te maken
+        op onze websites en u te voorzien van een e-mailadres van de organisatie.
+      </div>
+      <div class="gdpr_hr" />
+    {:else}
+      <div class="mt-2">
+        <strong>F)</strong> Het opnemen van mijn pasfoto of teamfoto op de website
+        van de NTTB of organisaties waar de NTTB mee samenwerkt.
+      </div>
+      <div class="gdpr_hr">
+        <input
+          type="checkbox"
+          class="form-control"
+          name="privacy6"
+          id="privacy6"
+          bind:checked={checkF}
+        />
+      </div>
+    {/if}
 
     <div class="mt-2">
       <strong>G)</strong> Mijn naam en e-mailadres via de afgeschermde website van
