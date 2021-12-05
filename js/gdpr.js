@@ -3,8 +3,8 @@
 program: NTTB App
 name: gdpr
 type: JS
-version: 0.2
-date: 2021-11-23
+version: 0.11
+date: 2021-12-05
 description: store and recive gdpr consents
 author: JOFTT
 
@@ -18,8 +18,12 @@ function click_privacy() {
                 gdpr += String.fromCharCode(96 + i); // convert to letters
             }
         }
-        if (profile_set.has_results === "1" && !gdpr.includes('b')) {
+
+        if ((profile_set.has_results === "1" || profile_set.has_function === "1") && !gdpr.includes('b')) {
             gdpr += 'b'; // if any results exists or kader add 'b'
+        }
+        if (profile_set.has_function === "1" && !gdpr.includes('f')) {
+            gdpr += 'f'; // if kader add 'f'
         }
 
         localiSession = JSON.parse(localStorage.getItem("nl_dwf_sessionInfo")); // Rest call prep
@@ -52,10 +56,10 @@ function page_gdpr() {
     if (arrow_menu === "Privacy") return; // Privacy is selected
     arrow_ini(); // previous page set
     arrow_menu = "Privacy";
-	$("#content").html(page_gdpr_html); // load html
+    $("#content").html(page_gdpr_html); // load html
     $("#help").html(help_gdpr); // load help
     nav_left("Privacy"); // deactivate menu Privacy
-    update_profile(true); // update fl_aconsent status
+    update_profile(true); // update fl_aconsent status now and execute mng_gdpr_b()
     if (fl_aconsent) {
         $("#avg_consent").show();
     } else {
@@ -68,16 +72,28 @@ function mng_gdpr_b() {
     for (var i = 0; i < profile_set.gdpr.length; i++) { // 97=a		
         $("#privacy" + (profile_set.gdpr.charCodeAt(i) - 96)).prop("checked", true);
     }
-    if (profile_set.has_results === "1" || profile_set.has_function === "1") {
+    if (profile_set.has_results === "1" || profile_set.has_function === "1") { // B
         $('#anonimous_avg').text('Omdat u in een NTTB-competitie of NTTB-toernooi hebt gespeeld of binnen de NTTB een functie (hebt) bekleed, kunt u niet anoniem zijn op de gepubliceerde websites, apps en sociale media van de NTTB.');
-        $('#anonimous_vink').hide();
+        $('#privacy2').hide();
     } else {
         $('#anonimous_avg').text('Indien u geen functie binnen de NTTB bekleedt of hebt bekleedt of geen resultaten hebt behaald in competities en/of toernooien, en u op websites, apps en sociale media van de NTTB anoniem wenst te blijven kunt u dat hier aangeven.');
-        $('#anonimous_vink').show();
+        $('#privacy2').show();
         if (profile_set.gdpr.includes('b')) {
-            $('#anonimous_vink').prop('checked', true);
+            $('#privacy2').prop('checked', true);
         } else {
-            $('#anonimous_vink').prop('checked', false);
+            $('#privacy2').prop('checked', false);
+        }
+    }
+    if (profile_set.has_function === "1") { // F 
+        $('#foto_avg').text('Omdat u een functie (hebt) uitoefenen binnen de NTTB, zoals bijvoorbeeld bestuursleden, bondsraadleden, commissieleden en werkgroepleden, gebruiken wij uw persoonsgegevens en uw foto om uw functie zichtbaar te maken op onze websites en u te voorzien van een e-mailadres van de organisatie.');
+        $('#privacy6').hide();
+    } else {
+        $('#foto_avg').text('Het opnemen van mijn pasfoto of teamfoto op de website van de NTTB of organisaties waar de NTTB mee samenwerkt.');
+        $('#anonprivacy6imous_vink').show();
+        if (profile_set.gdpr.includes('f')) {
+            $('#privacy6').prop('checked', true);
+        } else {
+            $('#privacy6').prop('checked', false);
         }
     }
 }
@@ -136,13 +152,13 @@ const page_gdpr_html = `
             <strong>B)</strong> <span id="anonimous_avg"></span>
         </div>
         <div class="gdpr_hr">
-             <input id="anonimous_vink" style="display:none" type="checkbox" class="form-control" name="privacy2" id="privacy2">
+             <input style="display:none" type="checkbox" class="form-control" name="privacy2" id="privacy2">
         </div>
           
-        <div class="mt-2">
+        <div style="display:none" class="mt-2">
             <strong>C)</strong> Mij benaderen voor onderzoeken in het belang van leden van de NTTB.
         </div>
-        <div class="gdpr_hr">
+        <div style="display:none" class="gdpr_hr">
             <input type="checkbox" class="form-control" name="privacy3" id="privacy3">
         </div>
 
@@ -161,7 +177,7 @@ const page_gdpr_html = `
         </div>
    
         <div class="mt-2">
-            <strong>F)</strong> Het opnemen van mijn pasfoto of teamfoto op de website van de NTTB of organisaties waar de NTTB mee samenwerkt.
+            <strong>F)</strong> <span id="foto_avg"></span>
         </div>
         <div class="gdpr_hr">
             <input type="checkbox" class="form-control" name="privacy6" id="privacy6">
