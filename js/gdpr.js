@@ -3,8 +3,8 @@
 program: NTTB App
 name: gdpr
 type: JS
-version: 0.11
-date: 2021-12-05
+version: 0.12
+date: 2021-12-07
 description: store and recive gdpr consents
 author: JOFTT
 
@@ -59,13 +59,7 @@ function page_gdpr() {
     $("#content").html(page_gdpr_html); // load html
     $("#help").html(help_gdpr); // load help
     nav_left("Privacy"); // deactivate menu Privacy
-    update_profile(true); // update fl_aconsent status now and execute mng_gdpr_b()
-    if (fl_aconsent) {
-        $("#avg_consent").show();
-    } else {
-        $("#O16_consent").text("Omdat jij nog geen 16 jaar bent, mag je niet zelf toestemming geven voor het gebruik van jouw persoonsgegevens. Dat kunnen alleen jouw ouders of je wettelijke vertegenwoordigers. Hiervoor moeten zij contact opnemen met het Bondsbureau van de NTTB.");
-        $("#avg_consent").hide();
-    }
+    update_profile(true); // update fl_aconsent status now and execute mng_gdpr_b()   
 }
 
 function mng_gdpr_b() {
@@ -95,6 +89,12 @@ function mng_gdpr_b() {
         } else {
             $('#privacy6').prop('checked', false);
         }
+    }
+    if (fl_aconsent) {
+        $("#avg_consent").show();
+    } else {
+        $("#O16_consent").text("Omdat jij nog geen 16 jaar bent, mag je niet zelf toestemming geven voor het gebruik van jouw persoonsgegevens. Dat kunnen alleen jouw ouders of je wettelijke vertegenwoordigers. Hiervoor moeten zij contact opnemen met het Bondsbureau van de NTTB.");
+        $("#avg_consent").hide();
     }
 }
 
@@ -142,56 +142,56 @@ const page_gdpr_html = `
         </div>
        
         <div class="mt-2">
-            <strong>A)</strong> Het beschikbaar stellen van mijn naam, verenigingsnaam, geboortedatum en geslacht aan organisatoren van evenementen die niet door de NTTB of haar verenigingen worden georganiseerd, zodat zij u kunnen uitnodigen voor deelname aan deze evenementen.
+            Het beschikbaar stellen van mijn naam, verenigingsnaam, geboortedatum en geslacht aan organisatoren van evenementen die niet door de NTTB of haar verenigingen worden georganiseerd, zodat zij u kunnen uitnodigen voor deelname aan deze evenementen.
         </div>
         <div class="gdpr_hr">
             <input type="checkbox" class="form-control" name="privacy1" id="privacy1">
         </div>
 
         <div class="mt-2">
-            <strong>B)</strong> <span id="anonimous_avg"></span>
+            <span id="anonimous_avg"></span>
         </div>
         <div class="gdpr_hr">
              <input style="display:none" type="checkbox" class="form-control" name="privacy2" id="privacy2">
         </div>
           
         <div style="display:none" class="mt-2">
-            <strong>C)</strong> Mij benaderen voor onderzoeken in het belang van leden van de NTTB.
+            Mij benaderen voor onderzoeken in het belang van leden van de NTTB.
         </div>
         <div style="display:none" class="gdpr_hr">
             <input type="checkbox" class="form-control" name="privacy3" id="privacy3">
         </div>
 
         <div class="mt-2">
-            <strong>D)</strong> Publiceren van foto’s/afbeeldingen en films van mij op websites, apps en sociale media van de NTTB of van organisaties waar de NTTB mee samenwerkt. Dit geldt ook voor foto’s/afbeeldingen en films waarop ook sponsors van tafeltennisverenigingen en/of de NTTB staan. Door deel te nemen aan een wedstrijd of toernooi, of zich toegang te verschaffen tot een speellocatie waarin foto- of filmopnamen worden gemaakt, geeft u eveneens toestemming voor publicatie van de beelden.
+            Publiceren van foto’s/afbeeldingen en films van mij op websites, apps en sociale media van de NTTB of van organisaties waar de NTTB mee samenwerkt. Dit geldt ook voor foto’s/afbeeldingen en films waarop ook sponsors van tafeltennisverenigingen en/of de NTTB staan. Door deel te nemen aan een wedstrijd of toernooi, of zich toegang te verschaffen tot een speellocatie waarin foto- of filmopnamen worden gemaakt, geeft u eveneens toestemming voor publicatie van de beelden.
         </div>
         <div class="gdpr_hr">
             <input type="checkbox" class="form-control" name="privacy4" id="privacy4">
         </div>
   
         <div class="mt-2">
-            <strong>E)</strong> Het beschikbaar stellen van mijn naam en e-mailadres aan sponsoren van de NTTB zodat zij mij kunnen benaderen voor aan de sport tafeltennis gerelateerde aanbiedingen en producten.
+            Het beschikbaar stellen van mijn naam en e-mailadres aan sponsoren van de NTTB zodat zij mij kunnen benaderen voor aan de sport tafeltennis gerelateerde aanbiedingen en producten.
         </div>
         <div class="gdpr_hr">
             <input type="checkbox" class="form-control" name="privacy5" id="privacy5">
         </div>
    
         <div class="mt-2">
-            <strong>F)</strong> <span id="foto_avg"></span>
+            <span id="foto_avg"></span>
         </div>
         <div class="gdpr_hr">
             <input type="checkbox" class="form-control" name="privacy6" id="privacy6">
         </div>
 
         <div class="mt-2">
-            <strong>G)</strong> Mijn naam en e-mailadres via de afgeschermde website van de NTTB beschikbaar stellen zodat andere leden mij kunnen benaderen.
+            Mijn naam en e-mailadres via de afgeschermde website van de NTTB beschikbaar stellen zodat andere leden mij kunnen benaderen.
         </div>
         <div class="gdpr_hr">
             <input type="checkbox" class="form-control" name="privacy7" id="privacy7">
         </div>
 
         <div class="mt-2">
-            <strong>H)</strong> Mij na beëindiging van mijn lidmaatschap te benaderen voor bijvoorbeeld een reünie of bijzondere gebeurtenis.
+            Mij na beëindiging van mijn lidmaatschap te benaderen voor bijvoorbeeld een reünie of bijzondere gebeurtenis.
         </div>
         <div class="gdpr_hr">
             <input type="checkbox" class="form-control" name="privacy8" id="privacy8">
