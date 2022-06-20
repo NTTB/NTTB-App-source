@@ -12,7 +12,7 @@ author: JOFTT
 
 function page_nttb() {
     if (arrow_menu === "NTTB") return;
-    //arrow_page('#nav-find'); // previous page set
+    arrow_page('#nav-find'); // previous page set
     arrow_menu = "NTTB";
     $("#content").html(page_nttb_html); // load html
     $("body").toggleClass("menu-right-open"); // close menu
@@ -75,6 +75,11 @@ const page_nttb_html = `
             <i class="icon material-icons">info</i>
             <p class="bottext_menu">info</p>
         </a>
+        <a onclick="arrow_back('#nav-material');" class="nav-item nav-link" id="nav-material-tab" data-toggle="tab" href="#nav-material"
+        role="tab" aria-controls="nav-material" aria-selected="false">
+        <i class="material-icons">view_quilt</i>
+        <p class="bottext_menu">materiaal</p>
+        </a>
         <a onclick="arrow_back('#nav-news');sub_page_rss()" class="nav-item nav-link" id="nav-news-tab" data-toggle="tab" href="#nav-news"
             role="tab" aria-controls="nav-news" aria-selected="false">
             <i class="icon material-icons">public</i>
@@ -89,8 +94,7 @@ const page_nttb_html = `
 </nav>
 
 <div id="m_rght">
-    <a href="#" onclick="$('body').toggleClass('menu-right-open')" class="menu-right nav-item nav-link"
-        style="padding-left:5px;">
+    <a href="#" onclick="$('body').toggleClass('menu-right-open')" class="menu-right nav-item nav-link" style="padding-left:5px;">
         <i class="icon material-icons">more_vert</i>
     </a>
 </div>
@@ -174,15 +178,23 @@ const page_nttb_html = `
                         <div class="col-md ml-2">
                             <h6 class="orangeicon">AFDELINGEN</h6>
                             <ul class="list">
-                                <li class="item"><a class="link" href="https://holland-noord.nttb.nl/">Holland-Noord</a></li>
-                                <li class="item"><a class="link" href="https://zuidwest.nttb.nl/">ZuidWest</a></li>
-                                <li class="item"><a class="link" href="https://west.nttb.nl/">West</a></li>
-                                <li class="item"><a class="link" href="https://noord.nttb.nl/"">Noord</a></li>
-                                <li class=" item"><a class="link" href="https://limburg.nttb.nl/">Limburg</a></li>
-                                <li class="item"><a class="link" href="https://gelre.nttb.nl/">Gelre</a></li>
-                                <li class="item"><a class="link" href="https://midden.nttb.nl/">Midden</a></li>
-                                <li class="item"><a class="link" href="https://oost.nttb.nl/">Oost</a></li>
-                            </ul>
+                            <li class="item"><a class="link" href="https://tafeltennis.nl/">tafeltennis.nl</a></li>
+                            <li class="item"><a class="link" href="https://www.nttb.nl/">nttb.nl</a></li>
+                            <li class="item"><a class="link" href="https://pingpongbaas.club/">pingpongbaas.club</a>
+                            </li>
+                            <li class="item"><a class="link" href="https://www.ettu.org/en/">Europese Tafeltennis
+                                    Unie (ETTU)</a></li>
+                            <li class="item"><a class="link" href="https://www.ittf.com/"">Internationale Tafeltennis Federatie (ITTF)</a></li>
+                            <li class=" item"><a class="link"
+                                        href="https://www.nttb-ranglijsten.nl/">Ranglijsten</a></li>
+                            <li class="item"><a class="link"
+                                    href="https://www.tafeltennismasterz.nl/">TafeltennisMasterz</a></li>
+                            <li class="item"><a class="link" href="https://www.nttb-scheidsrechters.nl/">Tafeltennis
+                                    Scheidsrechters</a></li>
+                            <li class="item"><a class="link"
+                                    href="https://tafeltennismarkt.nl/">Tafeltennismarkt</a></li>
+                            <li class="item"><a class="link" href="https://www.nttb.nl/webshop">Webshop</a></li>
+                        </ul>
                         </div>
                     </div>
                     <br>
@@ -191,6 +203,33 @@ const page_nttb_html = `
             </div>
         </div>
     </div>
+    
+    <!-- material content -->
+    <div class="tab-pane fade" id="nav-material" role="tabpanel" aria-labelledby="nav-material-tab">
+        <div class="content-sticky-footer">
+            <div class="card card-data-item mx-2 mt-2 py-3">
+                <div class="row my-3 mx-3">
+                    <div class="col">
+                        <h5 style="display: inline;" class="font-light"><span id="welkom">Goedgekeurde tafeltennismateriaal</span></h5>
+                    </div>
+                </div>
+                <div class="col-md mx-2">
+                    Tafeltennis wordt met allerlei soorten frames, rubbers en balletjes gespeeld.<br>Hier zijn links met lijsten van tafeltennismateriaal dat (inter)nationaal is goedgekeurd.
+                </div>
+                <hr>
+                <div class="col-md ml-2">
+                    <h6 class="orangeicon">LINKS</h6>
+                    <ul class="list">
+                        <li class="item"><a class="link" href="https://equipments.ittf.com/#/equipments/racket_coverings/">ITTF goedgekeurde rubbers</a></li>
+                        <li class="item"><a class="link" href="https://equipments.ittf.com/#/equipments/tables/">ITTF goedgekeurde tafels</a></li>
+                        <li class="item"><a class="link" href="https://equipments.ittf.com/#/equipments/balls/">ITTF goedgekeurde ballen</a><br><small>Specifiek voor Landelijke competitie selecteer in de kolom:&nbsp;<strong>TYPE</strong> &#X1F449; <em>With Seam</em></small></li>
+                        <li class="item"><a class="link" href="https://www.nttb.nl/wp-content/uploads/2021/06/Toegestane-niet-celluloid-ballen-2012-2022.pdf">Toegestane niet-celluloid ballen</a></li>
+                    </ul>                
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- news content -->
     <div class="tab-pane fade" id="nav-news" role="tabpanel" aria-labelledby="nav-news-tab">
         <div class="content-sticky-footer">
