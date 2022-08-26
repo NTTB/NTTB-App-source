@@ -3,8 +3,8 @@
 program: NTTB App
 name: nttb page
 type: JS
-version: 0.1
-date: 2021-11-25
+version: 0.13
+date: 2022-08-26
 description: view NTTB info
 author: JOFTT
 
@@ -16,18 +16,18 @@ function page_nttb() {
     arrow_menu = "NTTB";
     $("#content").html(page_nttb_html); // load html
     $("body").toggleClass("menu-right-open"); // close menu
+    /* //obsolete with use of new NTTB event widget, it can't be cached in localstore
     if (localStorage.getItem("nl_dwf_events_date") !== today) { // only once a day REST call
         let req_events = call_REST('events', {}); //read events & news
         req_events.done(function (data) {
             $("#news_today").html(data); // show events
             localStorage.setItem("nl_dwf_events", data); // store  events
-            localStorage.setItem("nl_dwf_events_date", today); // store date of store
             $("#events_today").html(localStorage.getItem("nl_dwf_events")); // show from store
         });
         req_events.fail();
     } else { // retive from store
         $("#events_today").html(localStorage.getItem("nl_dwf_events")); // show from store
-    }
+    }*/
     $("#help").html(help_nttb); // load help
     nav_left("NTTB"); // deactivate menu NTTB
 }
@@ -62,33 +62,44 @@ const help_nttb = `
    <tr>
         <td><i class="icon material-icons">date_range</i></td>
         <td>Actuele Evenementen uit tafeltennis.nl website.</</td>
+</tr>
+   <tr>
+        <td><i class="icon material-icons">view_quilt</i></td>
+        <td>Goedgekeurde materialen door NTTB en ITTF.</</td>
    </tr>
 </tbody>
 </table>
 `;
 
 const page_nttb_html = `
+<script src="https://apps.elfsight.com/p/platform.js" defer></script>
+<style>.eapp-events-calendar-events-calendar-title {
+    color: #10069F!important;
+    margin-left: 0.7rem!important;
+    font-size: 1.25rem!important;
+    font-weight: 500!important;
+    line-height: 1.2!important;
+    display: inline!important;
+}
+</style>
+
 <nav class="tabber tabber-bottom publish-tabs">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a onclick="arrow_back('#nav-nttbinfo');" class="nav-item nav-link active" id="nav-nttbinfo-tab"
-            data-toggle="tab" href="#nav-nttbinfo" role="tab" aria-controls="nav-nttbinfo" aria-selected="true">
+        <a onclick="arrow_back('#nav-nttbinfo');" class="nav-item nav-link active" id="nav-nttbinfo-tab"  data-toggle="tab" href="#nav-nttbinfo" role="tab" aria-controls="nav-nttbinfo" aria-selected="true">
             <i class="icon material-icons">info</i>
             <p class="bottext_menu">info</p>
         </a>
-        <a onclick="arrow_back('#nav-material');" class="nav-item nav-link" id="nav-material-tab" data-toggle="tab" href="#nav-material"
-        role="tab" aria-controls="nav-material" aria-selected="false">
-        <i class="material-icons">view_quilt</i>
-        <p class="bottext_menu">materiaal</p>
-        </a>
-        <a onclick="arrow_back('#nav-news');sub_page_rss()" class="nav-item nav-link" id="nav-news-tab" data-toggle="tab" href="#nav-news"
-            role="tab" aria-controls="nav-news" aria-selected="false">
+        <a onclick="arrow_back('#nav-news');sub_page_rss()" class="nav-item nav-link" id="nav-news-tab" data-toggle="tab" href="#nav-news" role="tab" aria-controls="nav-news" aria-selected="false">
             <i class="icon material-icons">public</i>
             <p class="bottext_menu">op Web</p>
         </a>
-        <a onclick="arrow_back('#nav-evenementen')" class="nav-item nav-link" id="nav-evenementen-tab"
-            data-toggle="tab" href="#nav-evenementen" role="tab" aria-controls="nav-evenementen" aria-selected="false">
+        <a onclick="arrow_back('#nav-evenementen')" class="nav-item nav-link" id="nav-evenementen-tab" data-toggle="tab" href="#nav-evenementen" role="tab" aria-controls="nav-evenementen" aria-selected="false">
             <i class="icon material-icons">date_range</i>
             <p class="bottext_menu">evenementen</p>
+        </a>
+        <a onclick="arrow_back('#nav-material');" class="nav-item nav-link" id="nav-material-tab" data-toggle="tab" href="#nav-material" role="tab" aria-controls="nav-material" aria-selected="false">
+            <i class="material-icons">view_quilt</i>
+            <p class="bottext_menu">materiaal</p>
         </a>
     </div>
 </nav>
@@ -139,7 +150,6 @@ const page_nttb_html = `
                             <a href="https://www.youtube.com/channel/UCl4lBjp5z1-YMniT9J-0dXw" class="social"><img
                                     src="./img/youtube.png"></a>
                         </div>
-
                     </div>
                     <hr>
                     <div class="row">
@@ -157,53 +167,93 @@ const page_nttb_html = `
                         <div class="col-md ml-2">
                             <h6 class="orangeicon">LINKS</h6>
                             <ul class="list">
-                                <li class="item"><a class="link" href="https://tafeltennis.nl/">tafeltennis.nl</a></li>
-                                <li class="item"><a class="link" href="https://www.nttb.nl/">nttb.nl</a></li>
-                                <li class="item"><a class="link" href="https://pingpongbaas.club/">pingpongbaas.club</a>
+                                <li class="item">
+                                   <a class="link" href="https://tafeltennis.nl/">tafeltennis.nl</a>
                                 </li>
-                                <li class="item"><a class="link" href="https://www.ettu.org/en/">Europese Tafeltennis
-                                        Unie (ETTU)</a></li>
-                                <li class="item"><a class="link" href="https://www.ittf.com/"">Internationale Tafeltennis Federatie (ITTF)</a></li>
-                                <li class=" item"><a class="link"
-                                            href="https://www.nttb-ranglijsten.nl/">Ranglijsten</a></li>
-                                <li class="item"><a class="link"
-                                        href="https://www.tafeltennismasterz.nl/">TafeltennisMasterz</a></li>
-                                <li class="item"><a class="link" href="https://www.nttb-scheidsrechters.nl/">Tafeltennis
-                                        Scheidsrechters</a></li>
-                                <li class="item"><a class="link"
-                                        href="https://tafeltennismarkt.nl/">Tafeltennismarkt</a></li>
-                                <li class="item"><a class="link" href="https://www.nttb.nl/webshop">Webshop</a></li>
+                                <li class="item">
+                                   <a class="link" href="https://www.nttb.nl/">nttb.nl</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://pingpongbaas.club/">pingpongbaas.club</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.ettu.org/en/">Europese Tafeltennis Unie (ETTU)</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.ittf.com/"">Internationale Tafeltennis Federatie (ITTF)</a>
+                                </li>
+                                <li class=" item">
+                                    <a class="link" href="https://www.nttb-ranglijsten.nl/">Ranglijsten</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.tafeltennismasterz.nl/">TafeltennisMasterz</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.nttb-scheidsrechters.nl/">Tafeltennis
+                                        Scheidsrechters</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://tafeltennismarkt.nl/">Tafeltennismarkt</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.nttb.nl/webshop">Webshop</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-md ml-2">
                             <h6 class="orangeicon">AFDELINGEN</h6>
                             <ul class="list">
-                            <li class="item"><a class="link" href="https://tafeltennis.nl/">tafeltennis.nl</a></li>
-                            <li class="item"><a class="link" href="https://www.nttb.nl/">nttb.nl</a></li>
-                            <li class="item"><a class="link" href="https://pingpongbaas.club/">pingpongbaas.club</a>
-                            </li>
-                            <li class="item"><a class="link" href="https://www.ettu.org/en/">Europese Tafeltennis
-                                    Unie (ETTU)</a></li>
-                            <li class="item"><a class="link" href="https://www.ittf.com/"">Internationale Tafeltennis Federatie (ITTF)</a></li>
-                            <li class=" item"><a class="link"
-                                        href="https://www.nttb-ranglijsten.nl/">Ranglijsten</a></li>
-                            <li class="item"><a class="link"
-                                    href="https://www.tafeltennismasterz.nl/">TafeltennisMasterz</a></li>
-                            <li class="item"><a class="link" href="https://www.nttb-scheidsrechters.nl/">Tafeltennis
-                                    Scheidsrechters</a></li>
-                            <li class="item"><a class="link"
-                                    href="https://tafeltennismarkt.nl/">Tafeltennismarkt</a></li>
-                            <li class="item"><a class="link" href="https://www.nttb.nl/webshop">Webshop</a></li>
-                        </ul>
+                                <li class="item">
+                                    <a class="link" href="https://tafeltennis.nl/">tafeltennis.nl</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.nttb.nl/">nttb.nl</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://pingpongbaas.club/">pingpongbaas.club</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.ettu.org/en/">Europese Tafeltennis
+                                    Unie (ETTU)</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.ittf.com/"">Internationale Tafeltennis Federatie (ITTF)</a>
+                                </li>
+                                <li class=" item">
+                                    <a class="link" href="https://www.nttb-ranglijsten.nl/">Ranglijsten</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.tafeltennismasterz.nl/">TafeltennisMasterz</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.nttb-scheidsrechters.nl/">Tafeltennis Scheidsrechters</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://tafeltennismarkt.nl/">Tafeltennismarkt</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.nttb.nl/webshop">Webshop</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <br>
-
                 </div>
             </div>
         </div>
     </div>
     
+    <!--evenementen-->
+    <div class="tab-pane fade " id="nav-evenementen" role="tabpanel" aria-labelledby="nav-evenementen-tab">
+        <div class="content-sticky-footer">
+            <div class="card card-data-item mx-2 mt-2 py-3">
+                <div style="margin-top: -1.3rem;" class="row">     
+                    <div class="elfsight-app-a8a47a41-6076-4398-bf1f-6e63583e042c"></div>
+                </div>  
+            </div>
+        </div>
+    </div>
+
     <!-- material content -->
     <div class="tab-pane fade" id="nav-material" role="tabpanel" aria-labelledby="nav-material-tab">
         <div class="content-sticky-footer">
@@ -220,10 +270,17 @@ const page_nttb_html = `
                 <div class="col-md ml-2">
                     <h6 class="orangeicon">LINKS</h6>
                     <ul class="list">
-                        <li class="item"><a class="link" href="https://equipments.ittf.com/#/equipments/racket_coverings/">ITTF goedgekeurde rubbers</a></li>
-                        <li class="item"><a class="link" href="https://equipments.ittf.com/#/equipments/tables/">ITTF goedgekeurde tafels</a></li>
-                        <li class="item"><a class="link" href="https://equipments.ittf.com/#/equipments/balls/">ITTF goedgekeurde ballen</a><br><small>Specifiek voor Landelijke competitie selecteer in de kolom:&nbsp;<strong>TYPE</strong> &#X1F449; <em>With Seam</em></small></li>
-                        <li class="item"><a class="link" href="https://www.nttb.nl/wp-content/uploads/2021/06/Toegestane-niet-celluloid-ballen-2012-2022.pdf">Toegestane niet-celluloid ballen</a></li>
+                        <li class="item">
+                            <a class="link" href="https://equipments.ittf.com/#/equipments/racket_coverings/">ITTF goedgekeurde rubbers</a>
+                        </li>
+                        <li class="item">
+                            <a class="link" href="https://equipments.ittf.com/#/equipments/tables/">ITTF goedgekeurde tafels</a>
+                        </li>
+                        <li class="item">
+                            <a class="link" href="https://equipments.ittf.com/#/equipments/balls/">ITTF goedgekeurde ballen</a><br><small>Specifiek voor Landelijke competitie selecteer in de kolom:&nbsp;<strong>TYPE</strong> &#X1F449; <em>With Seam</em></small></li>
+                        <li class="item">
+                            <a class="link" href="https://www.nttb.nl/wp-content/uploads/2021/06/Toegestane-niet-celluloid-ballen-2012-2022.pdf">Toegestane niet-celluloid ballen</a>
+                        </li>
                     </ul>                
                 </div>
             </div>
@@ -236,26 +293,10 @@ const page_nttb_html = `
             <div class="card card-data-item mx-2 mt-2 py-3">
                 <div class="row my-3 mx-3">
                     <div class="col">
-                        <h5 style="display: inline;" class="font-light"><span id="welkom">Tafeltennisnieuws:</span></h5>
+                        <h5 style="display: inline;" class="font-light"><span id="welkom">Tafeltennisnieuws</span></h5>
                     </div>
                 </div>
-                <div id="news_today">
-                    Geen nieuws
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--evenementen-->
-    <div class="tab-pane fade " id="nav-evenementen" role="tabpanel" aria-labelledby="nav-evenementen-tab">
-        <div class="content-sticky-footer">
-            <div class="card card-data-item mx-2 mt-2 py-3">
-                <div class="row my-3 mx-3">
-                    <div class="col">
-                        <h5 style="display: inline;" class="font-light"><span id="welkom">Actuele Evenementen:</span></h5>
-                    </div>
-                </div>
-                <div id="events_today"></div>
+                <div id="news_today">Geen nieuws</div>
             </div>
         </div>
     </div>
