@@ -59,7 +59,7 @@ function page_gdpr() {
     $("#content").html(page_gdpr_html); // load html
     $("#help").html(help_gdpr); // load help
     nav_left("Privacy"); // deactivate menu Privacy
-    update_profile(true); // update fl_aconsent status now and execute mng_gdpr_b()   
+    update_profile(true, false); // update fl_aconsent status now and execute mng_gdpr_b()   
 }
 
 function mng_gdpr_b() {

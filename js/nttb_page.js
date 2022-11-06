@@ -3,8 +3,8 @@
 program: NTTB App
 name: nttb page
 type: JS
-version: 0.13
-date: 2022-08-26
+version: 0.14
+date: 2022-10-17
 description: view NTTB info
 author: JOFTT
 
@@ -16,18 +16,6 @@ function page_nttb() {
     arrow_menu = "NTTB";
     $("#content").html(page_nttb_html); // load html
     $("body").toggleClass("menu-right-open"); // close menu
-    /* //obsolete with use of new NTTB event widget, it can't be cached in localstore
-    if (localStorage.getItem("nl_dwf_events_date") !== today) { // only once a day REST call
-        let req_events = call_REST('events', {}); //read events & news
-        req_events.done(function (data) {
-            $("#news_today").html(data); // show events
-            localStorage.setItem("nl_dwf_events", data); // store  events
-            $("#events_today").html(localStorage.getItem("nl_dwf_events")); // show from store
-        });
-        req_events.fail();
-    } else { // retive from store
-        $("#events_today").html(localStorage.getItem("nl_dwf_events")); // show from store
-    }*/
     $("#help").html(help_nttb); // load help
     nav_left("NTTB"); // deactivate menu NTTB
 }
@@ -125,7 +113,7 @@ const page_nttb_html = `
             <div class="card card-data-item mx-2 mt-2 py-3">
                 <div class="row pt-3 pl-3 mx-0">
                     <div class="col-4 text-center">
-                        <a href="https://www.nttb.nl/" class="media user-column">
+                        <a href="https://www.nttb.nl/" target="_blank" class="media user-column">
                             <img class="img-fluid" style="max-height:150px;" src="./img/nttb_n.png">
                         </a>
                     </div>
@@ -140,14 +128,14 @@ const page_nttb_html = `
                 <div class="container">
                     <div class="row mb-2">
                         <div class="col-md" style="display: flex;justify-content:space-around;">
-                            <a href="https://www.facebook.com/NederlandseTafeltennisbond/" class="social"><img
+                            <a href="https://www.facebook.com/NederlandseTafeltennisbond/" target="_blank" class="social"><img
                                     src="./img/facebook.png"></a>
-                            <a href="https://www.linkedin.com/company/nederlandse-tafeltennisbond/" class="social"><img
+                            <a href="https://www.linkedin.com/company/nederlandse-tafeltennisbond/" target="_blank" class="social"><img
                                     src="./img/linkedin.png"></a>
-                            <a href="https://twitter.com/tafeltennis" class="social"><img src="./img/twitter.png"></a>
-                            <a href="https://www.instagram.com/NTTB_tafeltennis/" class="social"><img
+                            <a href="https://twitter.com/tafeltennis" target="_blank" class="social"><img src="./img/twitter.png"></a>
+                            <a href="https://www.instagram.com/NTTB_tafeltennis/" target="_blank" class="social"><img
                                     src="./img/instagram.png"></a>
-                            <a href="https://www.youtube.com/channel/UCl4lBjp5z1-YMniT9J-0dXw" class="social"><img
+                            <a href="https://www.youtube.com/channel/UCl4lBjp5z1-YMniT9J-0dXw" target="_blank" class="social"><img
                                     src="./img/youtube.png"></a>
                         </div>
                     </div>
@@ -168,72 +156,49 @@ const page_nttb_html = `
                             <h6 class="orangeicon">LINKS</h6>
                             <ul class="list">
                                 <li class="item">
-                                   <a class="link" href="https://tafeltennis.nl/">tafeltennis.nl</a>
+                                   <a class="link" href="https://tafeltennis.nl/" target="_blank">tafeltennis.nl</a>
                                 </li>
                                 <li class="item">
-                                   <a class="link" href="https://www.nttb.nl/">nttb.nl</a>
+                                   <a class="link" href="https://www.nttb.nl/" target="_blank">nttb.nl</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://pingpongbaas.club/">pingpongbaas.club</a>
+                                    <a class="link" href="https://pingpongbaas.club/" target="_blank">pingpongbaas.club</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://www.ettu.org/en/">Europese Tafeltennis Unie (ETTU)</a>
+                                    <a class="link" href="https://www.ettu.org/en/" target="_blank">Europese Tafeltennis Unie (ETTU)</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://www.ittf.com/"">Internationale Tafeltennis Federatie (ITTF)</a>
+                                    <a class="link" href="https://www.ittf.com/" target="_blank">Internationale Tafeltennis Federatie (ITTF)</a>
                                 </li>
                                 <li class=" item">
-                                    <a class="link" href="https://www.nttb-ranglijsten.nl/">Ranglijsten</a>
+                                    <a class="link" href="https://www.nttb-ranglijsten.nl/" target="_blank">Ranglijsten</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://www.tafeltennismasterz.nl/">TafeltennisMasterz</a>
+                                    <a class="link" href="https://www.tafeltennismasterz.nl/" target="_blank">TafeltennisMasterz</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://www.nttb-scheidsrechters.nl/">Tafeltennis
+                                    <a class="link" href="https://www.nttb-scheidsrechters.nl/" target="_blank">Tafeltennis
                                         Scheidsrechters</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://tafeltennismarkt.nl/">Tafeltennismarkt</a>
+                                    <a class="link" href="https://tafeltennismarkt.nl/" target="_blank">Tafeltennismarkt</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://www.nttb.nl/webshop">Webshop</a>
+                                    <a class="link" href="https://www.nttb.nl/webshop" target="_blank">Webshop</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-md ml-2">
                             <h6 class="orangeicon">AFDELINGEN</h6>
                             <ul class="list">
-                                <li class="item">
-                                    <a class="link" href="https://tafeltennis.nl/">tafeltennis.nl</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="https://www.nttb.nl/">nttb.nl</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="https://pingpongbaas.club/">pingpongbaas.club</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="https://www.ettu.org/en/">Europese Tafeltennis
-                                    Unie (ETTU)</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="https://www.ittf.com/"">Internationale Tafeltennis Federatie (ITTF)</a>
-                                </li>
-                                <li class=" item">
-                                    <a class="link" href="https://www.nttb-ranglijsten.nl/">Ranglijsten</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="https://www.tafeltennismasterz.nl/">TafeltennisMasterz</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="https://www.nttb-scheidsrechters.nl/">Tafeltennis Scheidsrechters</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="https://tafeltennismarkt.nl/">Tafeltennismarkt</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="https://www.nttb.nl/webshop">Webshop</a>
-                                </li>
+                                <li class="item"><a class="link" href="https://holland-noord.nttb.nl/" target="_blank">Holland-Noord</a></li>
+                                <li class="item"><a class="link" href="https://zuidwest.nttb.nl/" target="_blank">ZuidWest</a></li>
+                                <li class="item"><a class="link" href="https://west.nttb.nl/" target="_blank">West</a></li>
+                                <li class="item"><a class="link" href="https://noord.nttb.nl/" target="_blank">Noord</a></li>
+                                <li class="item"><a class="link" href="https://limburg.nttb.nl/" target="_blank">Limburg</a></li>
+                                <li class="item"><a class="link" href="https://gelre.nttb.nl/" target="_blank">Gelre</a></li>
+                                <li class="item"><a class="link" href="https://midden.nttb.nl/" target="_blank">Midden</a></li>
+                                <li class="item"><a class="link" href="https://oost.nttb.nl/" target="_blank">Oost</a></li>
                             </ul>
                         </div>
                     </div>
@@ -271,15 +236,15 @@ const page_nttb_html = `
                     <h6 class="orangeicon">LINKS</h6>
                     <ul class="list">
                         <li class="item">
-                            <a class="link" href="https://equipments.ittf.com/#/equipments/racket_coverings/">ITTF goedgekeurde rubbers</a>
+                            <a class="link" href="https://equipments.ittf.com/#/equipments/racket_coverings/" target="_blank">ITTF goedgekeurde rubbers</a>
                         </li>
                         <li class="item">
-                            <a class="link" href="https://equipments.ittf.com/#/equipments/tables/">ITTF goedgekeurde tafels</a>
+                            <a class="link" href="https://equipments.ittf.com/#/equipments/tables/" target="_blank">ITTF goedgekeurde tafels</a>
                         </li>
                         <li class="item">
-                            <a class="link" href="https://equipments.ittf.com/#/equipments/balls/">ITTF goedgekeurde ballen</a><br><small>Specifiek voor Landelijke competitie selecteer in de kolom:&nbsp;<strong>TYPE</strong> &#X1F449; <em>With Seam</em></small></li>
+                            <a class="link" href="https://equipments.ittf.com/#/equipments/balls/" target="_blank">ITTF goedgekeurde ballen</a><br><small>Specifiek voor Landelijke competitie selecteer in de kolom:&nbsp;<strong>TYPE</strong> &#X1F449; <em>With Seam</em></small></li>
                         <li class="item">
-                            <a class="link" href="https://www.nttb.nl/wp-content/uploads/2021/06/Toegestane-niet-celluloid-ballen-2012-2022.pdf">Toegestane niet-celluloid ballen</a>
+                            <a class="link" href="https://www.nttb.nl/wp-content/uploads/2021/06/Toegestane-niet-celluloid-ballen-2012-2022.pdf" target="_blank">Toegestane niet-celluloid ballen</a>
                         </li>
                     </ul>                
                 </div>
