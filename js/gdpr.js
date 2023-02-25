@@ -79,7 +79,7 @@ function mng_gdpr_b() {
         }
     }
     if (profile_set.has_function === "1") { // F 
-        $('#foto_avg').text('Omdat u een functie (hebt) uitoefenen binnen de NTTB, zoals bijvoorbeeld bestuursleden, bondsraadleden, commissieleden en werkgroepleden, gebruiken wij uw persoonsgegevens en uw foto om uw functie zichtbaar te maken op onze websites en u te voorzien van een e-mailadres van de organisatie.');
+        $('#foto_avg').text('Omdat u een functie (hebt) uitoefenen binnen de NTTB, zoals bijvoorbeeld bestuursleden, bondsraadleden, commissieleden en werkgroepleden, gebruiken wij uw persoonsgegevens en uw foto om uw functie zichtbaar te maken op onze websites en u te voorzien van een e-mail van de organisatie.');
         $('#privacy6').hide();
     } else {
         $('#foto_avg').text('Het opnemen van mijn pasfoto of teamfoto op de website van de NTTB of organisaties waar de NTTB mee samenwerkt.');
@@ -170,7 +170,7 @@ const page_gdpr_html = `
         </div>
   
         <div class="mt-2">
-            Het beschikbaar stellen van mijn naam en e-mailadres aan sponsoren van de NTTB zodat zij mij kunnen benaderen voor aan de sport tafeltennis gerelateerde aanbiedingen en producten.
+            Het beschikbaar stellen van mijn naam en e-mail aan sponsoren van de NTTB zodat zij mij kunnen benaderen voor aan de sport tafeltennis gerelateerde aanbiedingen en producten.
         </div>
         <div class="gdpr_hr">
             <input type="checkbox" class="form-control" name="privacy5" id="privacy5">
@@ -184,7 +184,7 @@ const page_gdpr_html = `
         </div>
 
         <div class="mt-2">
-            Mijn naam en e-mailadres via de afgeschermde website van de NTTB beschikbaar stellen zodat andere leden mij kunnen benaderen.
+            Mijn naam en e-mail via de afgeschermde website van de NTTB beschikbaar stellen zodat andere leden mij kunnen benaderen.
         </div>
         <div class="gdpr_hr">
             <input type="checkbox" class="form-control" name="privacy7" id="privacy7">

@@ -3,8 +3,8 @@
 program: NTTB App
 name: nttb page
 type: JS
-version: 0.14
-date: 2022-10-17
+version: 0.15
+date: 2022-12-13
 description: view NTTB info
 author: JOFTT
 
@@ -24,7 +24,7 @@ function sub_page_rss() {
     if (fl_sp_rss) { // rss once a session
         if (localStorage.getItem("nl_dwf_news_date") !== today) { // once a day only download
             let req_rss = call_REST('news', {}); //read RSS
-            req_rss.done(function (data) {
+            req_rss.done(data => {
                 $("#news_today").html(data); // show news
                 localStorage.setItem("nl_dwf_news", data);
                 localStorage.setItem("nl_dwf_news_date", today);
@@ -172,9 +172,6 @@ const page_nttb_html = `
                                 </li>
                                 <li class=" item">
                                     <a class="link" href="https://www.nttb-ranglijsten.nl/" target="_blank">Ranglijsten</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="https://www.tafeltennismasterz.nl/" target="_blank">TafeltennisMasterz</a>
                                 </li>
                                 <li class="item">
                                     <a class="link" href="https://www.nttb-scheidsrechters.nl/" target="_blank">Tafeltennis
