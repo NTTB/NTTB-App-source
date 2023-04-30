@@ -3,13 +3,16 @@
 program: NTTB App
 name: nttb page
 type: JS
-version: 0.15
-date: 2022-12-13
+version: 0.17
+date: 2023-04-30
 description: view NTTB info
 author: JOFTT
 
 ************************************************************************************************/
 
+/**
+ * open NTTB page & preparation
+ */
 function page_nttb() {
     if (arrow_menu === "NTTB") return;
     arrow_page('#nav-find'); // previous page set
@@ -20,14 +23,18 @@ function page_nttb() {
     nav_left("NTTB"); // deactivate menu NTTB
 }
 
+
+/**
+ * open news subpage & preparation
+ */
 function sub_page_rss() {
     if (fl_sp_rss) { // rss once a session
-        if (localStorage.getItem("nl_dwf_news_date") !== today) { // once a day only download
+        if (localStorage.getItem("nl_dwf_news_date") !== dt_sql) { // once a day only download
             let req_rss = call_REST('news', {}); //read RSS
             req_rss.done(data => {
                 $("#news_today").html(data); // show news
                 localStorage.setItem("nl_dwf_news", data);
-                localStorage.setItem("nl_dwf_news_date", today);
+                localStorage.setItem("nl_dwf_news_date", dt_sql);
             });
         } else {
             $("#news_today").html(localStorage.getItem("nl_dwf_news")); // show news
@@ -35,6 +42,7 @@ function sub_page_rss() {
         fl_sp_rss = false;
     }
 }
+
 /******************************************** nttb.html ***************************************** */
 const help_nttb = `
 <table class="table table-sm">
@@ -52,7 +60,7 @@ const help_nttb = `
         <td>Actuele Evenementen uit tafeltennis.nl website.</</td>
 </tr>
    <tr>
-        <td><i class="icon material-icons">view_quilt</i></td>
+        <td><i class="icon material-icons">approval</i></td>
         <td>Goedgekeurde materialen door NTTB en ITTF.</</td>
    </tr>
 </tbody>
@@ -86,7 +94,7 @@ const page_nttb_html = `
             <p class="bottext_menu">evenementen</p>
         </a>
         <a onclick="arrow_back('#nav-material');" class="nav-item nav-link" id="nav-material-tab" data-toggle="tab" href="#nav-material" role="tab" aria-controls="nav-material" aria-selected="false">
-            <i class="material-icons">view_quilt</i>
+            <i class="material-icons">approval</i>
             <p class="bottext_menu">materiaal</p>
         </a>
     </div>
@@ -222,7 +230,7 @@ const page_nttb_html = `
             <div class="card card-data-item mx-2 mt-2 py-3">
                 <div class="row my-3 mx-3">
                     <div class="col">
-                        <h5 style="display: inline;" class="font-light"><span id="welkom">Goedgekeurde tafeltennismateriaal</span></h5>
+                        <h5 style="display: inline;" class="font-light"><span id="welkom">Goedgekeurde tafeltennismaterialen</span></h5>
                     </div>
                 </div>
                 <div class="col-md mx-2">
@@ -231,19 +239,22 @@ const page_nttb_html = `
                 <hr>
                 <div class="col-md ml-2">
                     <h6 class="orangeicon">LINKS</h6>
-                    <ul class="list">
-                        <li class="item">
-                            <a class="link" href="https://equipments.ittf.com/#/equipments/racket_coverings/" target="_blank">ITTF goedgekeurde rubbers</a>
-                        </li>
-                        <li class="item">
-                            <a class="link" href="https://equipments.ittf.com/#/equipments/tables/" target="_blank">ITTF goedgekeurde tafels</a>
-                        </li>
-                        <li class="item">
-                            <a class="link" href="https://equipments.ittf.com/#/equipments/balls/" target="_blank">ITTF goedgekeurde ballen</a><br><small>Specifiek voor Landelijke competitie selecteer in de kolom:&nbsp;<strong>TYPE</strong> &#X1F449; <em>With Seam</em></small></li>
-                        <li class="item">
-                            <a class="link" href="https://www.nttb.nl/wp-content/uploads/2021/06/Toegestane-niet-celluloid-ballen-2012-2022.pdf" target="_blank">Toegestane niet-celluloid ballen</a>
-                        </li>
-                    </ul>                
+                    <div style="display:block;" class="cacheview btn-poule card mt-2" onclick="window.open('` + ITTFrubers + `', '_blank')">
+                       <img src="` + ITTFlogo + `" width="40" class="py-1 mx-2">
+                       <span class="vbm mr-2">Goedgekeurde rubbers</span>
+                    </div>
+
+                    <div style="display:block;" class="cacheview btn-poule card mt-2" onclick="window.open('` + ITTFtables + `', '_blank')">
+                       <img src="` + ITTFlogo + `" width="40" class="py-1 mx-2">
+                       <span class="vbm mr-2">Goedgekeurde tafels</span>
+                    </div>
+
+                    <div style="display:block;" class="cacheview btn-poule card mt-2" onclick="window.open('` + ITTFballs + `', '_blank')">
+                       <img src="` + ITTFlogo + `" width="40" class="py-1 mx-2">
+                       <span class="vbm mr-2">Goedgekeurde ballen</span>
+                    </div>
+                    <small>Specifiek voor Landelijke competitie selecteer in de kolom:&nbsp;<strong>TYPE</strong> &#X1F449; <em>With Seam</em></small>
+            
                 </div>
             </div>
         </div>

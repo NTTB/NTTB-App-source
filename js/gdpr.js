@@ -3,13 +3,16 @@
 program: NTTB App
 name: gdpr
 type: JS
-version: 0.12
-date: 2021-12-07
+version: 0.14
+date: 2023-04-30
 description: store and recive gdpr consents
 author: JOFTT
 
 ************************************************************************************************/
 
+/**
+ * GDPR selected options confirmation
+ */
 function click_privacy() {
     if (fl_aconsent) {
         let gdpr = "";
@@ -45,16 +48,20 @@ function click_privacy() {
         });
 
         req_gdpr.fail(function () {
-            $("#unsuccess_txtq").html("Connectiefout");
+            $("#unsuccess_txtq").html("Verbindingsfout. Probeer het opnieuw.");
             $(".notification.top.red").notify(3000);
         });
     }
 }
 
+/**
+ * open GDPR page & preparation
+ */
 function page_gdpr() {
     $("body").toggleClass("menu-right-open"); // close menu
     if (arrow_menu === "Privacy") return; // Privacy is selected
-    arrow_ini(); // previous page set
+    //arrow_ini(); // previous page set
+    arrow_page(null);
     arrow_menu = "Privacy";
     $("#content").html(page_gdpr_html); // load html
     $("#help").html(help_gdpr); // load help
@@ -62,6 +69,9 @@ function page_gdpr() {
     update_profile(true, false); // update fl_aconsent status now and execute mng_gdpr_b()   
 }
 
+/**
+ * GDPR questions management
+ */
 function mng_gdpr_b() {
     for (var i = 0; i < profile_set.gdpr.length; i++) { // 97=a		
         $("#privacy" + (profile_set.gdpr.charCodeAt(i) - 96)).prop("checked", true);
@@ -98,17 +108,189 @@ function mng_gdpr_b() {
     }
 }
 
+/**
+ * open config page
+ */
+function page_config() {
+    $("body").toggleClass("menu-right-open"); // close menu
+    if (arrow_menu === "Instellingen") return; // config is selected
+    arrow_page(null);
+    arrow_menu = "Instellingen";
+    $("#content").html(page_config_html); // load html
+    $("#help").html(help_config); // load help
+    nav_left("Instellingen"); // deactivate menu Instellingen  
+    activate_tester(); // activate options for tester
+    let str = "DWF: " + main_version + ' / Jacek Offierski';
+    str += "<br>Scorebord: " + sb_version + ' / Jacek Offierski';
+    if (tester.includes(parseInt(localiSession.username))) str += '<br>Boot: ' + localStorage.getItem("bootver");
+    $("#config_ver").html(str);
+    $("#wss_change").val(isWS);
+}
+
+/**
+ * confirmation remove account
+ */
+function remove_account() {
+    let message = "Nadat u op <strong>Bevestig</strong> hebt gedrukt, wordt uw applicatie-account verwijderd van dit apparaat en ook van de server. U kunt altijd een nieuw account aanvragen op het inlogscherm. ";
+    modal_notification(message, do_remove_account, "APPLICATIEACCOUNT VERWIJDEREN", "Terug,Bevestig");
+}
+
+/**
+ * call remove account API if confirm
+ * 
+ * @param {number} buttonIndex 1-back, 2-confirmed 
+ */
+function do_remove_account(buttonIndex) {
+    if (buttonIndex == 2) {
+
+        let req_del = call_REST('del_account', { // save gdpr on server
+            ver: push_version
+        });
+
+        req_del.done(function (data) {
+            retApp = JSON.parse(data);
+            if (ok_REST(retApp.error, retApp.username)) {
+                localStorage.clear();
+                if (navigator.app != null) navigator.app.exitApp(); // Android exit app
+                click_signonoff();
+            } else {
+                $("#unsuccess_txtq").html("Fout tijdens account verwijderen. Probeer het opnieuw.");
+                $(".notification.top.red").notify(3000);
+            }
+        });
+
+        req_del.fail(function () {
+            $("#unsuccess_txtq").html("Verbindingsfout. Probeer het opnieuw.");
+            $(".notification.top.red").notify(3000);
+        });
+    }
+}
+
+/**
+ * confirmation for clean local storage data
+ */
+function clean_local_data() {
+    let message = "Nadat u op <strong>Opschonen</strong> hebt gedrukt, worden alle applicatiegegevens op dit apparaat opgeschoond. U wordt uitgelogd, maar u kunt direct inloggen met uw bestaande bondsnummer en wachtwoord.";
+    modal_notification(message, do_clean_local_data, "APPARAATGEGEVENS OPRUIMEN", "Terug,Opschonen");
+}
+
+/**
+ * clean local storage data
+ * 
+ * @param {number} buttonIndex 1-back, 2-confirmed 
+ */
+function do_clean_local_data(buttonIndex) {
+    if (buttonIndex == 2) {
+        localStorage.clear();
+        if (navigator.app != null) navigator.app.exitApp(); // Android exit app
+        click_signonoff();
+    }
+}
 
 /***************** html as const to prevent cross origin protection **************************** */
 
-const help_gdpr = ` Als u ouder dan 16 jaar bent, kunnen via deze functie privacy toestemmingen aangepast worden. Past eerst de vinkjes aan en druk dan op de 'AKKOORD' knop nonderaan.<br>Voor meer informatie zie de privacy pagina op de <a href="https://www.nttb.nl/privacywet/" target="_blank">NTTB website</a>.`;
+// config page
+const page_config_html = `
+<div id="m_rght">
+    <a href="#" onclick="$('body').toggleClass('menu-right-open')" class="menu-right nav-item nav-link" style="padding-left:5px;">
+    <i class="icon material-icons">more_vert</i>
+    </a>
+</div>
 
+<div id="m_left" onclick="arrow_return()">
+    <div class="nav-item nav-link" style="padding-right:5px">
+        <i class="icon material-icons">arrow_back</i>
+    </div>
+</div>
+
+<div id="page_config" class="card card-data-item mx-2 mt-2 py-3">
+    <div class="row mx-1 mt-3">
+        <h5 class="font-light ml-3">Instellingen</h5></div>
+    <hr>
+
+    <div class="row mx-1 mt-3">
+        <div style="font-weight:bold;">PRIVACY INSTELLINGEN</div>
+    </div>
+    <div onclick="page_gdpr()" class="row tdbutton mx-1">
+        <div class="col-12 tabszf pl-1"><i class="icon material-icons my-1 mr-2 tbm">assignment_turned_in</i>Toestemmingsverklaring aanpassen</div>
+    </div>
+    <div class="config_txt mx-1">
+        Als u ouder bent dan 16 jaar, dan kunt u via deze functie de toestemming rondom privacy aanpassen.
+    </div>
+    <hr>
+
+    <div class="row mx-1 mt-3">
+        <h6 style="font-weight:bold;">E-MAIL WIJZIGEN</h6>
+        <div class="input-group" style="border:solid 1px #007bff;border-radius:0.25rem;">
+            <input id="email_change" type="email" class="form-control input_fill" placeholder="plaats hier uw nieuwe e-mailadres" aria-label="email" ">
+            <div class="input-group-prepend" >
+                <span class="input-group-text"><i class="material-icons">email</i></span>
+            </div>
+        </div>
+
+    </div>
+    <div onclick="change_email()" class="row tdbutton mx-1 mt-1">
+        <div class="col-12 tabszf pl-1"><i class="icon material-icons my-1 mr-2 tbm">published_with_changes</i>E-mail aanpassen</div>
+    </div>
+        <div class="config_txt mx-1">
+            Heeft u een nieuw of ander e-mailadres? Vul hier uw nieuwe e-mailadres in en drukt op "E-mail aanpassen". Deze wordt direct doorgevoerd in de NTTB ledenadministratie.</div>
+    <hr>
+
+    <div class="row mx-1 mt-3">
+        <h6 style="font-weight:bold;">APPLICATIE-ACCOUNT VERWIJDEREN</h6>
+    </div>
+    <div onclick="remove_account()" class="row tdbutton mx-1">
+        <div class="col-12 tabszf pl-1"><i class="icon material-icons my-1 mr-2 tbm">clear_all</i>Wis account</div>
+    </div>
+    <div class="config_txt mx-1">
+       Het verwijderen van de applicatie-account wist alle gegevens die door deze applicatie worden gebruikt en u wordt direct uitgelogd.<br>LET OP: Het NTTB-lidmaatschap wordt hiermee niet opgezegd! Het stopzetten van het NTTB-lidmaatschap kan alleen via de ledenadministratie van uw vereniging. 
+    </div>
+    <hr>
+
+    <div class="row mx-1 mt-3">
+        <h6 style="font-weight:bold;">APPARAATGEGEVENS OPRUIMEN</h6>
+    </div>
+    <div onclick="clean_local_data()" class="row tdbutton mx-1">
+        <div class="col-12 tabszf pl-1"><i class="icon material-icons my-1 mr-2 tbm">cleaning_services</i>Apparaat opschonen</div>
+    </div>
+    <div class="config_txt mx-1">
+       Deze functie schoont alle gegevens op die deze applicatie gebruikt binnen dit apparaat. U wordt onmiddellijk na het opschonen uitgelogd.<br>LET OP: Deze functie verwijdert uw applicatie-account niet. Dit is enkel een reset van de applicatie zelf.
+    </div>
+    <hr>
+
+    <div class="row mx-1 mt-3">
+       <h6 style="font-weight:bold;">APPLICATIEVERSIE EN VERSIEHISTORIE</h6>
+    </div>
+    <a href="https://www.nttb-ranglijsten.nl/extra/update.php" target="_blank">
+    <div onclick="" class="row tdbutton mx-1">
+       <div class="col-12 tabszf pl-1"><i class="icon material-icons my-1 mr-2 tbm">public</i>Bekijk versiehistorie</div>
+    </div></a>
+    <div class="row mx-1 mt-0 config_txt" id="config_ver"></div>
+    <hr>
+
+    <div id="debug_view" class="row mt-3"></div>
+</div>
+`;
+
+// page config self explain. No help.
+const help_config = ``;
+
+// GDPR page help
+const help_gdpr = `Als u ouder bent dan 16 jaar, dan kunt u via deze functie de toestemming rondom privacy aanpassen.<br>Past eerst de vinkjes aan en druk dan op de 'AKKOORD' knop nonderaan.<br>Voor meer informatie zie de privacy pagina op de <a href="https://www.nttb.nl/privacywet/" target="_blank">NTTB website</a>.`;
+
+// GDPR page
 const page_gdpr_html = `
 <div id="m_rght">
     <a href="#" onclick="$('body').toggleClass('menu-right-open')" class="menu-right nav-item nav-link"
         style="padding-left:5px;">
         <i class="icon material-icons">more_vert</i>
     </a>
+</div>
+
+<div id="m_left" onclick="arrow_return()">
+    <div class="nav-item nav-link" style="padding-right:5px">
+        <i class="icon material-icons">arrow_back</i>
+    </div>
 </div>
 
 <div id="page_gdpr" class="card card-data-item mx-2 mt-2">
