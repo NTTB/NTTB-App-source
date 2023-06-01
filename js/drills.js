@@ -3,8 +3,8 @@
 program: NTTB App
 name: drills
 type: JS
-version: 0.23
-date: 2022-11-17
+version: 0.24
+date: 2023-05-12
 description: page and functions for training drills
 author: JOFTT
 
@@ -925,6 +925,7 @@ function page_drills(fl) {
     arrow_page('#nav-drill');
     arrow_menu = "Oefeningen";
     $("#content").html(page_drills_html);
+    add_header(naam_tabs_drills); // add headers
     router_drills('', true, 0);
     $("#help").html(help_drills);
     nav_left("Oefeningen");
@@ -932,7 +933,7 @@ function page_drills(fl) {
 
 /***************** html as const to prevent cross origin protection ************************** */
 const help_drills = `
-<div style="color:#10069F" class="py-2">
+<div style="color:#0254B7" class="py-2">
 <span class="tbb iconCircle_nact  mr-2">&#x270B;</span>voor andere handigheid.<br>
 <span ><i class="icon material-icons orangeicon iconCircle_nact mr-2 mt-2">star_border</i></span>voor een oefening bewaren in favorieten.
 </div>
@@ -941,58 +942,36 @@ const help_drills = `
 const page_drills_html = `
 <nav class="tabber tabber-bottom publish-tabs">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a onclick="arrow_back('#nav-drill');" class="nav-item nav-link active" id="nav-drill-tab" data-toggle="tab" href="#nav-drill" role="tab" aria-controls="nav-drill" aria-selected="true">
-             <i class="icon material-icons">scatter_plot</i>
+        <a onclick="arrow_back('#nav-drill');" class="nav-item nav-link active" id="nav-drill-tab" data-toggle="tab"
+            href="#nav-drill" role="tab" aria-controls="nav-drill" aria-selected="true">
+            <i class="icon material-icons">scatter_plot</i>
             <p class="bottext_menu">drill</p>
         </a>
-        <a onclick="arrow_back('#nav-dinfo');info_drill()" class="nav-item nav-link" id="nav-dinfo-tab" data-toggle="tab" href="#nav-dinfo"
-            role="tab" aria-controls="nav-dinfo" aria-selected="false">
+        <a onclick="arrow_back('#nav-dinfo');info_drill()" class="nav-item nav-link" id="nav-dinfo-tab"
+            data-toggle="tab" href="#nav-dinfo" role="tab" aria-controls="nav-dinfo" aria-selected="false">
             <i class="icon material-icons">info_outline</i>
             <p class="bottext_menu">info</p>
         </a>
-        <a onclick="arrow_back('#nav-dsearch');search_drill()" class="nav-item nav-link" id="nav-dsearch-tab" data-toggle="tab" href="#nav-dsearch"
-            role="tab" aria-controls="nav-dsearch" aria-selected="false">
+        <a onclick="arrow_back('#nav-dsearch');search_drill()" class="nav-item nav-link" id="nav-dsearch-tab"
+            data-toggle="tab" href="#nav-dsearch" role="tab" aria-controls="nav-dsearch" aria-selected="false">
             <i class="icon material-icons">search</i>
             <p class="bottext_menu">zoek</p>
         </a>
     </div>
 </nav>
 
-<div id="m_rght">
-    <a href="#" onclick="$('body').toggleClass('menu-right-open')" class="menu-right nav-item nav-link"
-        style="padding-left:5px;">
-        <i class="icon material-icons">more_vert</i>
-    </a>
-</div>
-
-<div id="m_left" onclick="arrow_return()">
-    <div class="nav-item nav-link" style="padding-right:5px">
-        <i class="icon material-icons">arrow_back</i>
-    </div>
-</div>
 
 <div class="tab-content h-100" id="nav-wssContent">
 
     <!-- drill view -->
     <div class="tab-pane fade show active" id="nav-drill" role="tabpanel" aria-labelledby="nav-drill-tab">
         <div class="content-sticky-footer">
-
-            <div id="fav_drills" style="display:none;" class="card card-data-item mx-2 px-2 mt-3 py-3">
-            </div>
-
-            <div class="card card-data-item mx-2 px-2 mt-3 py-3">
+            <div id='nav-drill-head'></div>
+            <div id="fav_drills" style="display:none;" class="card my-2"></div>
+            <div class="card my-2">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <h5 class="font-light">Oefening:</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container-fluid px-2">
                     <div id="drill_tab"></div>
                 </div>
-                <br><br>
             </div>
         </div>
     </div>
@@ -1000,41 +979,25 @@ const page_drills_html = `
     <!-- drill_info -->
     <div class="tab-pane fade" id="nav-dinfo" role="tabpanel" aria-labelledby="nav-dinfo-tab">
         <div class="content-sticky-footer">
-            <div class="card card-data-item mx-2 px-2 mt-3 py-3">
-
+            <div id='nav-dinfo-head'></div>
+            <div class="card my-2">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <h5 style="class=" font-light">Drill info:</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container-fluid px-2">
                     <div id="drill_info"></div>
                 </div>
 
-            </div><br><br>
+            </div>
         </div>
     </div>
 
     <!-- drill search -->
     <div class="tab-pane fade " id="nav-dsearch" role="tabpanel" aria-labelledby="nav-dsearch-tab">
         <div class="content-sticky-footer">
-            <div class="card card-data-item mx-2 px-2 mt-3 py-3">
-
+            <div id='nav-dsearch-head'></div>
+            <div class="card my-2">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col">
-                            <h5 style="class=" font-light">Zoek een drill:</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="container-fluid px-2">
                     <div id="drill_search"></div>
                 </div>
-            </div><br><br>
+            </div>
         </div>
     </div>
 

@@ -3,8 +3,8 @@
 program: NTTB App
 name: planning
 type: JS
-version: 0.23
-date: 2022-11-17
+version: 0.24
+date: 2023-05-13
 description: page and functions related to planning
 author: JOFTT
 
@@ -53,7 +53,7 @@ function edit_agenda() {
         });
 
         if (old_list.length > 0) {
-            str1 += '<hr>Overzicht:<div class="container-fluid px-2">'; // see A1
+            str1 += 'Overzicht:<div class="px-2">'; // see A1
             old_list.forEach(old => {
                 tmp = JSON.parse(old);
                 str1 += '<div id="old_wed' + tmp.tID + '"></div>';
@@ -90,7 +90,7 @@ function edit_agenda() {
                         current_teams.push(wed.tID);
                     }
                 });
-                str1 += '</div><hr>Planning:'; // see A1
+                str1 += '</div>Planning:'; // see A1
 
                 agenda_matches.forEach(wed => {
                     if (!isOlder(wed.date)) {
@@ -99,14 +99,14 @@ function edit_agenda() {
                             if (same_day != 0) {
                                 str1 += '</div></div>';
                             }
-                            str1 += '<div class="container-fluid px-2">';
+                            str1 += '<div class="px-2">';
                             str1 += '<div style="width:100%" class="btn-poule card px-1" >';
 
                         } else if (!str1.includes(plcn)) {
                             str1 += '<hr style="border: 1px solid #007bff;">';
                         }
                         if (!str1.includes(plcn)) {
-                            str1 += '<div id="plcn' + wed.tID + wed.wnr + '" class="container">';
+                            str1 += '<div id="plcn' + wed.tID + wed.wnr + '" >';
                             if (isEmpty(wed.cnf)) {
 
                                 str1 += '<div class="row mt-2">';
@@ -165,7 +165,7 @@ function edit_agenda() {
                     }
                 });
                 str1 += '</div></div>';
-                str1 += '<div id="logs" class="container"></div>';
+                str1 += '<div id="logs"></div>';
                 $("#wedstrijdplaning").html(str1);
                 display_wed_agenda(p_list);
 
@@ -176,7 +176,7 @@ function edit_agenda() {
             old_list.forEach((old, ix) => {
 
                 team_old = JSON.parse(old);
-                str2[team_old.tID] = '<div style="width:100%; background-color:aliceblue;" class="btn-tm card px-1 pb-2" ><div class="container">';
+                str2[team_old.tID] = '<div style="width:100%; background-color:aliceblue;" class="btn-tm card px-1 pb-2" ><div>';
                 str2[team_old.tID] += '<div class="row mt-2">';
                 str2[team_old.tID] += '<div class="col-md-12 justify-content-start text-center ag_date">' + team_old.team + ' <span class="tb_wrapg">' + team_old.comp + '</span></div>';
                 str2[team_old.tID] += '</div>';
@@ -184,7 +184,7 @@ function edit_agenda() {
                 pID_ix[team_old.tID] = team_old.pID;
 
                 if (who[team_old.tID] !== undefined) {
-                    str3 += '<div class="col-md-12 justify-content-start tb_wrapg">De laatste wijziging in <span class="dblueicon">' + team_old.team + '</span> planning is aangebracht door ' + who[team_old.tID].by.slice(0, -4) + ' op ' + who[team_old.tID].date + '</div><hr>';
+                    str3 += '<div class="col-md-12 justify-content-start tb_wrapg">De laatste wijziging in <span class="dblueicon">' + team_old.team + '</span> planning is aangebracht door ' + who[team_old.tID].by.slice(0, -4) + ' op ' + who[team_old.tID].date + '</div>';
                 }
 
                 let req_old = call_REST('get_whoplayed', { //get old matches
@@ -255,7 +255,7 @@ function edit_agenda() {
             });
 
             if (!isEmpty(str3)) {
-                $("#logs").html('<hr>' + str3);
+                $("#logs").html(str3);
             }
         });
     }
@@ -570,7 +570,7 @@ function agenda_icon(icon, match, tID, bnr, i_list, fl_start = true) {
             list: JSON.stringify(list[tID])
         });
 
-        req_team.done(function (data) {});
+        req_team.done(function (data) { });
     }
 }
 
@@ -583,6 +583,7 @@ function page_agenda() {
     arrow_page(null);
     arrow_menu = "Planning";
     $("#content").html(page_agenda_html);
+    add_header(naam_tabs_agenda); // add headers
     edit_agenda();
     $("#help").html(help_agenda);
     nav_left("Planning");
@@ -626,36 +627,10 @@ Binnen &eacute;&eacute;n kaart vallen alle wedstrijden op &eacute;&eacute;n dag 
 `;
 
 const page_agenda_html = `
-<div id="m_rght">
-    <a href="#" onclick="$('body').toggleClass('menu-right-open')" class="menu-right nav-item nav-link"
-        style="padding-left:5px;">
-        <i class="icon material-icons">more_vert</i>
-    </a>
-</div>
-
-<div id="m_left" onclick="arrow_return()">
-    <div class="nav-item nav-link" style="padding-right:5px">
-        <i class="icon material-icons">arrow_back</i>
-    </div>
-</div>
-
-<div id="page_agenda" class="card card-data-item mx-2 mt-2">
-    <!--agenda begin-->
-    <div class="container-fluid">
-        <div onclick="edit_agenda()" class="row my-3">
-            <div class="col-1">
-                <i class="icon material-icons iconCircle_nact">refresh</i>
-            </div>
-            <div class="col text-center ml-2">
-                <h5 style="display: inline;" class="font-light">Wedstrijdplanning:</h5>
-            </div>
-        </div>
-    </div>
+<div id='nav-agenda-head'></div>
+<div id="page_agenda" class="card mx-1 my-2">
     <!--agenda start-->
-    <div class="container" style="padding:0;">
         <div id="wedstrijdplaning"></div>
-        <br>
-    </div>
     <!--agenda end-->
 </div>
 `;
