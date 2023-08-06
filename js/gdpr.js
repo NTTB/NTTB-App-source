@@ -130,6 +130,27 @@ function page_config() {
     if (tester.includes(parseInt(localiSession.username))) str += '<br>Boot: ' + localStorage.getItem("bootver");
     $("#config_ver").html(str);
     $("#wss_change").val(isWS);
+    $("#config1_lan").html(config_lan.config1_lan[dwf_lan_sel]);
+    $("#config2_lan").html(config_lan.config2_lan[dwf_lan_sel]);
+    $("#config3_lan").html(config_lan.config3_lan[dwf_lan_sel]);
+}
+
+/**
+ * open config page not log-in
+ */
+function page_config_nli() {
+    $("body").toggleClass("menu-right-open"); // close menu
+    if (arrow_menu === "Instellingen") return; // config is selected
+    arrow_page(null);
+    arrow_menu = "Instellingen";
+    $("#content").html(page_config_html_nli); // load html
+    add_header(naam_tabs_config); // add headers
+    $("#help").html(help_config); // load help
+    nav_left("Instellingen"); // deactivate menu Instellingen  
+    let str = "DWF: " + main_version + ' / Jacek Offierski';
+    str += "<br>Scorebord: " + sb_version + ' / Jacek Offierski';
+    prime_club_set();
+    $("#config_ver").html(str);
 }
 
 /**
@@ -224,7 +245,43 @@ function do_clean_local_data(buttonIndex) {
     }
 }
 
+/**
+ * change language flip-flop
+ */
+function change_language() {
+    dwf_lan_sel = (int(dwf_lan_sel) == 0) ? 1 : 0;
+    let req_club = call_REST('put_dwfsetting', {
+        user: localiSession.username,
+        lan: dwf_lan_sel
+    });
+
+    req_club.done(data => {
+        let retApp = JSON.parse(data);
+        if (retApp.error === "OK") {
+            $("#config1_lan").html(config_lan.config1_lan[dwf_lan_sel]);
+            $("#config2_lan").html(config_lan.config2_lan[dwf_lan_sel]);
+            $("#config3_lan").html(config_lan.config3_lan[dwf_lan_sel]);
+        }
+    });
+
+}
+
 /***************** html as const to prevent cross origin protection **************************** */
+
+const config_lan = {
+    "config1_lan": {
+        0: "CHANGE LANGUAGE TO:",
+        1: "TAAL WIJZIGEN NAAR:"
+    },
+    "config2_lan": {
+        0: "English",
+        1: "Nederlands"
+    },
+    "config3_lan": {
+        0: "Language will be changed only for the <strong>Event Scoresheet</strong> function.",
+        1: "Deze functie verandert alleen de taal voor het <strong>Digitaal Wedstrijdformulier</strong>."
+    }
+};
 
 // config page
 const page_config_html = `
@@ -232,6 +289,7 @@ const page_config_html = `
     <div class="content-sticky-footer">
         <div id='nav-config-head'></div>
         <div class="card card-data-item mx-2 mt-3">
+
             <div class="row mx-1 mb-1">
                 <div style="font-weight:bold;">PRIVACY INSTELLINGEN</div>
             </div>
@@ -243,6 +301,18 @@ const page_config_html = `
             </div>
             <div class="config_txt mx-1">Als u ouder bent dan 16 jaar, dan kunt u via deze functie de toestemming rondom
                 privacy aanpassen.</div>
+            <hr>
+
+            <div class="row mx-1 mt-3">
+                <h6 id="config1_lan" style="font-weight:bold;"></h6>
+            </div>
+            <div onclick="change_language()" class="row tdbutton mx-1">
+                <div class="col-12 tabszf pl-1">
+                    <i class="icon material-icons my-1 mr-2 tbm">language</i>
+                    <span id="config2_lan"></span>
+                </div>
+            </div>
+            <div id="config3_lan" class="config_txt mx-1"></div>
             <hr>
 
             <div class="row mx-1 mt-3">
@@ -314,6 +384,27 @@ const page_config_html = `
             <hr>
 
             <div id="debug_view" class="row mt-3"></div>
+        </div>
+    </div>
+</div>
+`;
+
+// config when not log-in
+const page_config_html_nli = ` 
+<div id="page_config" class="card card-data-item">
+    <div class="content-sticky-footer">
+        <div id='nav-config-head'></div>
+        <div class="card card-data-item mx-2 mt-3">
+
+            <div onclick="window.open('https://www.nttb-ranglijsten.nl/extra/update.php', '_blank')"
+                class="row tdbutton mx-1">
+                <div class="col-12 tabszf pl-1"><i class="icon material-icons my-1 mr-2 tbm">public</i>Bekijk
+                    versiehistorie
+                </div>
+            </div>
+            <div class="row mx-1 mt-0 config_txt" id="config_ver"></div>
+            <hr>
+
         </div>
     </div>
 </div>

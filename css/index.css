@@ -6,17 +6,18 @@
 html,
 body {
     height: 100%;
+    font-family: 'Karla', sans-serif;
+    color: #10069F;
+    background-color: white;
+
+    overscroll-behavior-x: none;
+    /* prevent horizontal scrolling */
     overflow: hidden;
     /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;
     /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;
     /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color: white;
-
-    font-family: 'Karla', sans-serif;
-    color: #10069F;
-
 }
 
 h5 {
@@ -25,7 +26,8 @@ h5 {
 
 canvas {
     border: solid 1px #007bff;
-    border-radius: 5px;
+    border-radius: .25rem;
+    /*5px;*/
 }
 
 .login-body {
@@ -49,7 +51,9 @@ canvas {
     font-weight: 700 !important;
     padding: 3px !important;
     margin: 0 10px 0 10px !important;
-    border-radius: 0px !important;
+    border-radius: .25rem
+        /*0px*/
+        !important;
     /*font-size: 1.5rem!important;*/
 }
 
@@ -57,7 +61,9 @@ canvas {
     background-color: white;
     /*background-color:transparent;*/
     border: 2px solid white !important;
-    border-radius: 25px !important;
+    border-radius: .25rem
+        /*25px*/
+        !important;
     line-height: 24px !important;
     padding: 3px !important;
     color: #0254B7 !important;
@@ -89,7 +95,8 @@ canvas {
 */
 /* Portrait layout (default) */
 .app {
-    background: url(../img/logo_o.png) no-repeat center top;
+    /*background: url(img/nttb_s.png) no-repeat center top;*/
+    /*background: url(./img/logo_o.png) no-repeat center top;*/
     /* 170px x 200px */
     position: absolute;
     /* position in the center of the screen */
@@ -108,8 +115,9 @@ canvas {
 }
 
 .startimg {
+    /*background-image: url(./nttb_s.png);*/
     /*background-image:url(../img/load.jpg);*/
-    background-image: url(../img/nttb_s.png);
+    /*background-image: url(./img/nttb_s.png);*/
     /*background-color: #10069F;*/
     /*height: 100vh; */
     /* Center and scale the image nicely */
@@ -143,8 +151,10 @@ canvas {
 }*/
 
 .event {
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
+    border-radius: .25rem;
+    /*4px;*/
+    -webkit-border-radius: .25rem;
+    /*4px;*/
     color: #FFFFFF;
     font-size: 12px;
     margin: 0px 30px;
@@ -283,6 +293,12 @@ canvas {
     color: #007bff;
 }
 
+.tb_wrapc {
+    text-align: center !important;
+    font-size: 1rem;
+    color: #007bff;
+}
+
 .tb_wrapi {
     display: inline;
     font-size: 1rem;
@@ -315,6 +331,14 @@ canvas {
     display: inline;
     font-size: 0.8rem;
     font-weight: 400;
+}
+
+.tb_wrapgc {
+    color: #10069F;
+    display: inline;
+    font-size: 0.8rem;
+    font-weight: 400;
+    white-space: nowrap;
 }
 
 .tb_small {
@@ -355,8 +379,8 @@ canvas {
     display: inline-block;
     font-size: 1.6rem;
     font-weight: 700;
-    color: red;
-    padding-left: 3rem;
+    color: darkgreen;
+    /*padding-left: 3rem;*/
     white-space: nowrap;
 }
 
@@ -369,9 +393,11 @@ canvas {
     display: inline-block !important;
 }
 
+.flor {
+    float: right;
+}
 
-
-.jeden {
+.flol {
     float: left;
 }
 
@@ -493,6 +519,10 @@ canvas {
     text-align: right !important;
 }
 
+.tdl {
+    text-align: left !important;
+}
+
 .tdc {
     text-align: center !important;
 }
@@ -517,6 +547,8 @@ canvas {
     text-align: left;
     background-color: rgba(0, 123, 255, 0.1);
     border-bottom: solid 1px #007bff;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
 }
 
 
@@ -534,6 +566,7 @@ input[type=radio].with-font {
 input[type=radio].with-font~label:before {
     /*font-family: FontAwesome;*/
     content: attr(letta);
+    font-family: monospace;
     font-size: 1.8rem;
     color: #10069F;
     width: 1.4rem;
@@ -559,14 +592,18 @@ input[type=radio].with-font:checked~label:before {
 
 input[type=number].score_f {
     margin-left: .3rem;
-    width: 1.6rem;
+    width: 2rem;
+    /*1.6rem*/
     text-align: center;
     background-color: aliceblue;
     -moz-appearance: textfield;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    /*1rem*/
     font-stretch: ultra-condensed;
     padding-left: 0;
     padding-right: 0;
+    border-radius: 3px;
+    outline: none;
 }
 
 input[type="number"][disabled] {
@@ -579,10 +616,13 @@ input[type=number].score_e {
     text-align: center;
     background-color: lemonchiffon;
     -moz-appearance: textfield;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    /*1rem*/
     font-stretch: ultra-condensed;
     padding-left: 0;
     padding-right: 0;
+    border-color: black;
+    border-radius: 3px;
 }
 
 input::-webkit-outer-spin-button,
@@ -641,11 +681,11 @@ input::-webkit-inner-spin-button {
 }
 
 .aglsrow {
-    margin-left: -1.2rem;
-    margin-right: -1.2rem;
+    margin-left: -0.2rem;
+    margin-right: -0.2rem;
     background-color: rgba(0, 123, 255, 0.1);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
 }
 
 .agsumm {
@@ -657,6 +697,11 @@ input::-webkit-inner-spin-button {
 .adlist {
     /*background-color: rgba(0, 123, 255, 0.1);*/
     color: #10069F;
+}
+
+.iconleft {
+    float: left;
+    /*margin-left: 0.25rem;*/
 }
 
 .iconCircle_nact {
@@ -805,7 +850,9 @@ input::-webkit-inner-spin-button {
 }
 
 .ios .button {
-    border-radius: 4px !important;
+    border-radius: .25rem
+        /*4px*/
+        !important;
     height: 40px;
     line-height: 40px;
     border: 0;
@@ -832,9 +879,14 @@ summary {
 
     /*border: solid 2px #E9F3FD;*/
     border: 1px solid rgba(0, 0, 0, .06);
-    border-radius: 2px;
+    border-radius: .25rem;
+    /*2px;*/
     padding-left: .3rem;
     padding-right: .5rem;
+}
+
+summary:focus {
+    outline: none !important;
 }
 
 .bt-orange {
@@ -859,7 +911,8 @@ summary {
 
     padding-left: .3rem;
     padding-right: .5rem;
-    border-radius: 2px;
+    border-radius: .25rem;
+    /*2px;*/
 }
 
 .bt-login {
@@ -892,11 +945,14 @@ summary {
     color: white;
     background-color: #10069F;
     border: solid 1px #10069F;
-    border-radius: 5px !important;
+    border-radius: .25rem
+        /*5px*/
+        !important;
 
     width: 100%;
     text-align: left;
-    margin: 0 .2rem .5rem .2rem;
+    /*margin: 0 .2rem .5rem .2rem;*/
+    margin-bottom: .5rem;
 
     font-family: inherit;
     font-weight: 500;
@@ -917,11 +973,14 @@ summary {
     color: white;
     background-color: #bac2ca !important;
     border: solid 1px #bac2ca !important;
-    border-radius: 5px !important;
+    border-radius: .25rem
+        /*5px*/
+        !important;
 
     width: 100%;
     text-align: left;
-    margin: 0 .2rem .5rem .2rem;
+    /*margin: 0 .2rem .5rem .2rem;*/
+    margin-bottom: .5rem;
 
     font-family: inherit;
     font-weight: 500;
@@ -933,11 +992,14 @@ summary {
     color: #007bff;
     background-color: white !important;
     border: solid 2px #007bff !important;
-    border-radius: 5px !important;
+    border-radius: .25rem
+        /*5px*/
+        !important;
 
     width: 100%;
     text-align: left;
-    margin: 0 .2rem .5rem .2rem;
+    /*margin: 0 .2rem .5rem .2rem;*/
+    margin-bottom: .5rem;
 
     font-family: inherit;
     font-weight: 500;
@@ -1048,8 +1110,10 @@ table {
     border-left: solid 1px #007bff !important;
     border-top: solid 1px #007bff !important;
     border-right: solid 1px #007bff !important;
-    border-top-left-radius: 4%;
-    border-top-right-radius: 4%;
+    border-top-left-radius: .25rem;
+    /*4%;*/
+    border-top-right-radius: .25rem;
+    /*4%;*/
     margin-right: .3rem;
     flex-grow: unset !important;
     padding: .1rem .3rem .1rem .3rem;
@@ -1063,7 +1127,8 @@ table {
     padding-left: .3rem;
     color: #007bff;
     border: solid 1px #007bff;
-    border-radius: 2px;
+    border-radius: .25rem;
+    /*2px;*/
     /*background-color: rgb(255, 192, 0, 0.08);*/
 }
 
@@ -1076,7 +1141,8 @@ table {
     color: #F8622F;
     background-color: white;
     border: solid 1px #F8622F;
-    border-radius: 2px;
+    border-radius: .25rem;
+    /*2px;*/
 }
 
 .tdbutton-g {
@@ -1140,8 +1206,8 @@ table {
 }
 
 #m_left {
-    position: fixed;
-    /*top: 10%;*/
+    width: 40px;
+    /*position: fixed;
     left: -19px;
     z-index: 99;
     background-color: white;
@@ -1152,26 +1218,37 @@ table {
     box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.4);
     -webkit-box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.4);
-    -ms-box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.4);
+    -ms-box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.4);*/
 }
 
 
 .btn-radius {
-    border-radius: 100px !important;
+    /*border-radius: 100px !important;*/
+    border-radius: 0.25rem !important;
 }
 
 .btn-rlnd {
-    border-radius: 5px !important;
+    border-radius: .25rem
+        /*5px*/
+        !important;
 }
 
 .btn-rlleft {
-    border-bottom-left-radius: 5px !important;
-    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: .25rem
+        /*5px*/
+        !important;
+    border-top-left-radius: .25rem
+        /*5px*/
+        !important;
 }
 
 .btn-rlright {
-    border-bottom-right-radius: 5px !important;
-    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: .25rem
+        /*5px*/
+        !important;
+    border-top-right-radius: .25rem
+        /*5px*/
+        !important;
 }
 
 .btn-outline-primary:hover {
@@ -1201,7 +1278,9 @@ table {
 }
 
 .btn.btn-drillpic {
-    border-radius: 5px;
+    border-radius: .25rem
+        /*5px*/
+    ;
 }
 
 .btn-lore {
@@ -1225,7 +1304,9 @@ table {
     padding-top: .5rem;
     margin-right: .15rem;
     padding-bottom: .5rem;
-    border-radius: 15px;
+    border-radius: .25rem
+        /*15px*/
+    ;
 }
 
 .btn-poule {
@@ -1257,11 +1338,11 @@ table {
     color: #212529;
     background-color: aliceblue;
     margin: -18px .2rem 0 .2rem;
-    border-radius: 5px;
     font-size: 0.8rem;
     font-weight: 400;
     border: 1px solid #10069F;
     border-radius: .25rem;
+    padding: 2px 2px 2px 2px;
 }
 
 .pg_sb {
@@ -1301,6 +1382,11 @@ table {
     border-bottom: 1px solid #007bff;
 }
 
+.brdrest {
+    border: 1px solid #007bff;
+    border-radius: .25rem;
+}
+
 .iveerow {
     padding: 5px 5px 5px 5px;
     border-bottom: 1px solid #dddddd;
@@ -1335,13 +1421,17 @@ table {
 
 .list_fav_drills div {
     border: solid 1px #007bff !important;
-    border-radius: 2px !important;
+    border-radius: .25rem
+        /*2px*/
+        !important;
     margin-bottom: .3rem;
 }
 
 .list_fav_fav div {
     border: solid 1px #007bff !important;
-    border-radius: 2px !important;
+    border-radius: .25rem
+        /*2px*/
+        !important;
     margin-bottom: .3rem;
 }
 
@@ -1447,6 +1537,38 @@ table {
     color: black;
 }
 
+.decbon {
+    border: 2px solid #007bff;
+}
+
+.desLJ {
+    border: none;
+}
+
+.desLS {
+    border: none;
+}
+
+.desTT {
+    border: none;
+}
+
+.desTL {
+    border: none;
+}
+
+.desSR {
+    border: none;
+}
+
+.deslt {
+    border: none;
+}
+
+.desgen {
+    border: none;
+}
+
 .wssind {
     color: black;
     display: inline;
@@ -1455,7 +1577,7 @@ table {
     font-size: .8rem;
 }
 
-#sr_icon {
+.sr_icon {
     width: 25px;
     float: right;
 }
@@ -1477,10 +1599,23 @@ table {
 }
 
 .plyselframe {
-    background-color: rgba(230, 30, 10, 0.1);
+    width: 100%;
+    background-color: rgba(230, 30, 10, 0.1) !important;
     border: 1px solid #10069F;
     border-radius: .25rem;
-    padding: .2rem;
+    padding: .5rem;
+    line-height: 1rem;
+    color: #666666;
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+.whoselframe {
+    width: 100%;
+    background-color: rgba(0, 123, 255, 0.1) !important;
+    border: 1px solid #10069F;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
     line-height: 1rem;
     color: #666666;
     font-size: 0.8rem;
@@ -1504,7 +1639,7 @@ table {
     border-bottom: 2px #F8622F solid;
 }
 
-#dwf_card {
+#match_selection {
     background-color: white
 }
 
@@ -1539,3 +1674,173 @@ table {
 .inlflx {
     display: inline-flex;
 }
+
+.iconwin {
+    font-size: 1rem !important;
+    color: #00933E;
+    vertical-align: middle;
+}
+
+.iconlost {
+    font-size: 1rem !important;
+    color: #c0392b;
+    vertical-align: middle;
+}
+
+#w_today_button {
+    height: 60px;
+    width: 60px;
+    min-width: 60px;
+    font-size: 2.5rem;
+    line-height: 60px;
+    position: relative;
+}
+
+#a_dwf {
+    font-size: x-small;
+    font-weight: bolder;
+    color: #007bff;
+    position: absolute;
+    top: 83%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sr_button {
+    background-color: rgba(51, 19, 8, 0.1);
+}
+
+.config_txt {
+    color: #666666;
+    font-size: small;
+}
+
+.input_fill {
+    min-height: 1rem !important;
+    background-color: rgba(16, 6, 159, .04);
+}
+
+.btmil {
+    line-height: 1rem !important;
+    min-height: 50px;
+}
+
+.dwf_run_menu {
+    display: none;
+}
+
+.m_dwf_run {
+    position: fixed;
+    right: 25px;
+}
+
+.mbsc-np-tbl {
+    font-family: sans-serif;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    direction: ltr;
+    display: table;
+    width: 100%;
+    font-size: 5vh;
+    position: fixed;
+    bottom: 55px;
+    color: #666666;
+}
+
+.mbsc-np-row {
+    display: table-row
+}
+
+.mbsc-np-btn {
+    background-color: white;
+    position: relative;
+    z-index: 0;
+    width: 25%;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    max-height: 3em;
+    -webkit-user-select: none;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+.mbsc-fr-btn-e {
+    cursor: pointer
+}
+
+.mbsc-np-btn-empty {
+    background: none
+}
+
+input[type=number].score_f:focus {
+    border: 3px solid #dc3545 !important;
+}
+
+.w-40 {
+    width: 40px;
+}
+
+.w-51 {
+    width: 1%;
+}
+
+.headtab {
+    width: 100%;
+    /*border-bottom:1px solid #ccc;*/
+}
+
+.image-header {
+    content: url("../img/nttb_r.png");
+    margin: 5px 5px 5px 5px;
+    height: 45px;
+
+}
+
+.headtab td {
+    background-color: #0254B7;
+    color: white;
+}
+
+.headpage {
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+}
+
+.headtab-jas {
+    width: 100%;
+    border-bottom: 1px solid #007bff;
+}
+
+.image-header-jas {
+    content: url("https://www.nttb-ranglijsten.nl/dwf/nttb_z.jpg");
+    margin: 5px 5px 5px 5px;
+    height: 50px;
+
+}
+
+.headtab-jas td {
+    background-color: white;
+    color: #0254B7;
+}
+
+.headpage-jas {
+    text-transform: uppercase;
+    text-align: center;
+    color: #0254B7;
+}
+
+.btn-up {
+    text-transform: uppercase;
+    font-size: 700;
+}
+
+.ullist {
+    padding-inline-start: 1rem;
+}
+
+/*table tr {
+    background-color: withe;
+    background-image: linear-gradient(to bottom right, white 65%, #007bff) !important;
+}*/

@@ -3,8 +3,8 @@
 program: NTTB App
 name: nttb page
 type: JS
-version: 0.18
-date: 2023-05-03
+version: 0.19
+date: 2023-06-08
 description: view NTTB info
 author: JOFTT
 
@@ -138,73 +138,62 @@ const page_nttb_html = `
                     <hr>
                     <div class="row">
                         <div class="col-md ml-2">
-                            <h6 class="orangeicon">CONTACTGEGEVENS</h6>
+                            <h6 class="orangeicon">CONTACTGEGEVENS:</h6>
                             <p><strong>De NTTB is gevestigd aan:</strong><br>
                                 Kelvinbaan 48<br>
-                                3439 MT Nieuwegein</p>
+                                3439 MT  Nieuwegein</p>
                             <p><strong>Postadres:</strong><br>
                                 ​Postbus 2650<br>
-                                3430 GB Nieuwegein</p>
-                            <p><strong>Email:</strong> <a href="mailto:info@tafeltennis.nl">info@tafeltennis.nl</a><br>
-                                <strong>Telefoon:</strong> 06 &#8211; 53 89 60 27</p>
+                                3430 GB  Nieuwegein</p>
+                            <p><strong>e-mail:</strong> <a href="mailto:info@tafeltennis.nl">info@tafeltennis.nl</a><br>
+                                <strong>telefoon:</strong> <a href="tel:0653896027">06&#8211;53896027</p>
                         </div>
                         <div class="col-md ml-2">
-                            <h6 class="orangeicon">LINKS</h6>
-                            <ul class="list">
+                            <h6 class="orangeicon">LINKS:</h6>
+                            <ul class="ullist">
                                 <li class="item">
-                                    <a class="link" href="https://tafeltennis.nl/" target="_blank">tafeltennis.nl</a>
+                                   <a class="link" href="https://www.nttb.nl/" target="_blank">NTTB website</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://www.nttb.nl/" target="_blank">nttb.nl</a>
+                                    <a class="link" href="https://tafeltennis.nl/" target="_blank">Tafeltennis.nl</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://pingpongbaas.club/"
-                                        target="_blank">pingpongbaas.club</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="https://www.ettu.org/en/" target="_blank">Europese Tafeltennis
-                                        Unie (ETTU)</a>
-                                </li>
-                                <li class="item">
-                                    <a class="link" href="https://www.ittf.com/" target="_blank">Internationale
-                                        Tafeltennis Federatie (ITTF)</a>
+                                    <a class="link" href="https://www.nttb.nl/over-nttb/algemene-informatie/reglementen/" target="_blank">Reglementen: spelregels, competitie, toernooien enz.</a>
                                 </li>
                                 <li class=" item">
-                                    <a class="link" href="https://www.nttb-ranglijsten.nl/"
-                                        target="_blank">Ranglijsten</a>
+                                    <a class="link" href="https://www.nttb-ranglijsten.nl/" target="_blank">Ranglijsten</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://www.nttb-scheidsrechters.nl/"
-                                        target="_blank">Tafeltennis Scheidsrechters</a>
+                                    <a class="link" href="https://www.nttb-scheidsrechters.nl/" target="_blank">Tafeltennis Scheidsrechters</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://tafeltennismarkt.nl/"
-                                        target="_blank">Tafeltennismarkt</a>
+                                    <a class="link" href="https://tafeltennismarkt.nl/" target="_blank">Tafeltennismarkt</a>
                                 </li>
                                 <li class="item">
-                                    <a class="link" href="https://www.nttb.nl/webshop" target="_blank">Webshop</a>
+                                   <a class="link" href="https://pingpongbaas.club/" target="_blank">pingpongbaas.club</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.nttb.nl/webshop" target="_blank">NTTB Webshop</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.ettu.org/en/" target="_blank">Europese Tafeltennis Unie (ETTU)</a>
+                                </li>
+                                <li class="item">
+                                    <a class="link" href="https://www.ittf.com/" target="_blank">Internationale Tafeltennis Federatie (ITTF)</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-md ml-2">
-                            <h6 class="orangeicon">AFDELINGEN</h6>
-                            <ul class="list">
-                                <li class="item"><a class="link" href="https://holland-noord.nttb.nl/"
-                                        target="_blank">Holland-Noord</a></li>
-                                <li class="item"><a class="link" href="https://zuidwest.nttb.nl/"
-                                        target="_blank">ZuidWest</a></li>
-                                <li class="item"><a class="link" href="https://west.nttb.nl/" target="_blank">West</a>
-                                </li>
-                                <li class="item"><a class="link" href="https://noord.nttb.nl/" target="_blank">Noord</a>
-                                </li>
-                                <li class="item"><a class="link" href="https://limburg.nttb.nl/"
-                                        target="_blank">Limburg</a></li>
-                                <li class="item"><a class="link" href="https://gelre.nttb.nl/" target="_blank">Gelre</a>
-                                </li>
-                                <li class="item"><a class="link" href="https://midden.nttb.nl/"
-                                        target="_blank">Midden</a></li>
-                                <li class="item"><a class="link" href="https://oost.nttb.nl/" target="_blank">Oost</a>
-                                </li>
+                            <h6 class="orangeicon">AFDELINGEN:</h6>
+                            <ul class="ullist">
+                                <li class="item"><a class="link" href="https://holland-noord.nttb.nl/" target="_blank">Holland-Noord</a></li>
+                                <li class="item"><a class="link" href="https://zuidwest.nttb.nl/" target="_blank">ZuidWest</a></li>
+                                <li class="item"><a class="link" href="https://west.nttb.nl/" target="_blank">West</a></li>
+                                <li class="item"><a class="link" href="https://noord.nttb.nl/" target="_blank">Noord</a></li>
+                                <li class="item"><a class="link" href="https://limburg.nttb.nl/" target="_blank">Limburg</a></li>
+                                <li class="item"><a class="link" href="https://gelre.nttb.nl/" target="_blank">Gelre</a></li>
+                                <li class="item"><a class="link" href="https://midden.nttb.nl/" target="_blank">Midden</a></li>
+                                <li class="item"><a class="link" href="https://oost.nttb.nl/" target="_blank">Oost</a></li>
                             </ul>
                         </div>
                     </div>
