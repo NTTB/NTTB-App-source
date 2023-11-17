@@ -3,8 +3,8 @@
 program: NTTB App
 name: nttb page
 type: JS
-version: 0.19
-date: 2023-06-08
+version: 0.20
+date: 2023-08-12
 description: view NTTB info
 author: JOFTT
 
@@ -184,7 +184,7 @@ const page_nttb_html = `
                             </ul>
                         </div>
                         <div class="col-md ml-2">
-                            <h6 class="orangeicon">AFDELINGEN:</h6>
+                            <h6 class="orangeicon">REGIONALE WEBSITES:</h6>
                             <ul class="ullist">
                                 <li class="item"><a class="link" href="https://holland-noord.nttb.nl/" target="_blank">Holland-Noord</a></li>
                                 <li class="item"><a class="link" href="https://zuidwest.nttb.nl/" target="_blank">ZuidWest</a></li>

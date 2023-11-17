@@ -3,8 +3,8 @@
 program: NTTB App
 name: gdpr
 type: JS
-version: 0.16
-date: 2023-05-29
+version: 0.17
+date: 2023-08-25
 description: store and recive gdpr consents
 author: JOFTT
 
@@ -57,7 +57,7 @@ function click_privacy() {
 /**
  * open GDPR page & preparation
  */
-function page_gdpr() {
+function page_gdpr(fl = false) {
     $("body").toggleClass("menu-right-open"); // close menu
     if (arrow_menu === "Privacy") return; // Privacy is selected
     //arrow_ini(); // previous page set
@@ -70,6 +70,12 @@ function page_gdpr() {
     update_profile(true, false); // update fl_aconsent status now and execute mng_gdpr_b()   
     $("#p_name").html(profile_set.name);
     $("#p_bnr").html(localiSession.username);
+
+    if (fl) { // don't go back to TIN
+        arrow_tab = JSON.parse(localStorage.getItem("nl_dwf_back_arrow"));
+        arrow_tab.pop();
+        localStorage.setItem("nl_dwf_back_arrow", JSON.stringify(arrow_tab));
+    }
 }
 
 /**
@@ -130,9 +136,9 @@ function page_config() {
     if (tester.includes(parseInt(localiSession.username))) str += '<br>Boot: ' + localStorage.getItem("bootver");
     $("#config_ver").html(str);
     $("#wss_change").val(isWS);
-    $("#config1_lan").html(config_lan.config1_lan[dwf_lan_sel]);
-    $("#config2_lan").html(config_lan.config2_lan[dwf_lan_sel]);
-    $("#config3_lan").html(config_lan.config3_lan[dwf_lan_sel]);
+    $("#config1_lan").html(config_lan.config1_lan[language]);
+    $("#config2_lan").html(config_lan.config2_lan[language]);
+    $("#config3_lan").html(config_lan.config3_lan[language]);
 }
 
 /**
@@ -249,18 +255,18 @@ function do_clean_local_data(buttonIndex) {
  * change language flip-flop
  */
 function change_language() {
-    dwf_lan_sel = (int(dwf_lan_sel) == 0) ? 1 : 0;
+    language = (int(language) == 0) ? 1 : 0;
     let req_club = call_REST('put_dwfsetting', {
         user: localiSession.username,
-        lan: dwf_lan_sel
+        lan: language
     });
 
     req_club.done(data => {
         let retApp = JSON.parse(data);
         if (retApp.error === "OK") {
-            $("#config1_lan").html(config_lan.config1_lan[dwf_lan_sel]);
-            $("#config2_lan").html(config_lan.config2_lan[dwf_lan_sel]);
-            $("#config3_lan").html(config_lan.config3_lan[dwf_lan_sel]);
+            $("#config1_lan").html(config_lan.config1_lan[language]);
+            $("#config2_lan").html(config_lan.config2_lan[language]);
+            $("#config3_lan").html(config_lan.config3_lan[language]);
         }
     });
 

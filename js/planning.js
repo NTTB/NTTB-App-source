@@ -621,7 +621,7 @@ Wanneer je op het blokje <i class="tbt icon material-icons" style="color:#10069F
 </tr>
 </tbody>
 </table>
-Binnen &eacute;&eacute;n kaart vallen alle wedstrijden op &eacute;&eacute;n dag van zowel reguliere als duocompetitie en zowel landelijke als afdelingswedstrijden (etc.) Als iemand zijn/haar aanwezigheid doorgeeft of wijzigt, zal dit niet direct invloed hebben op andere wedstrijden op dezelfde dag.
+Binnen &eacute;&eacute;n kaart vallen alle wedstrijden op &eacute;&eacute;n dag van zowel reguliere als duocompetitie en zowel landelijke als regioswedstrijden (etc.) Als iemand zijn/haar aanwezigheid doorgeeft of wijzigt, zal dit niet direct invloed hebben op andere wedstrijden op dezelfde dag.
 </div>
 
 `;
