@@ -46,7 +46,7 @@ function sub_page_rss() {
 }
 
 /******************************************** nttb.html ***************************************** */
-const help_nttb = `
+var help_nttb = `
 <table class="table table-sm">
 <tbody>
    <tr>
@@ -69,7 +69,7 @@ const help_nttb = `
 </table>
 `;
 
-const page_nttb_html = `
+var page_nttb_html = `
 <script src="https://apps.elfsight.com/p/platform.js" defer></script>
 <style>
     .eapp-events-calendar-events-calendar-title {

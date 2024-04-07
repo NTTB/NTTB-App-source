@@ -589,8 +589,8 @@ function page_agenda() {
     nav_left("Planning");
 }
 
-/***************** html as const to prevent cross origin protection ************************** */
-const help_agenda = `
+/***************** html  ************************** */
+var help_agenda = `
 <div style="color:#10069F">
 Op de dagen dat uw wedstrijden gepland staan is er een kaart beschikbaar waar alle wedstrijden chronologisch op te zien zijn. Hier kunt u aangeven op welke dagen u kunt spelen, twijfelt, of niet kunt spelen.
 <br><br>
@@ -626,7 +626,7 @@ Binnen &eacute;&eacute;n kaart vallen alle wedstrijden op &eacute;&eacute;n dag 
 
 `;
 
-const page_agenda_html = `
+var page_agenda_html = `
 <div id='nav-agenda-head'></div>
 <div id="page_agenda" class="card mx-1 my-2">
     <!--agenda start-->

@@ -931,15 +931,15 @@ function page_drills(fl) {
     nav_left("Oefeningen");
 }
 
-/***************** html as const to prevent cross origin protection ************************** */
-const help_drills = `
+/***************** html  ************************** */
+var help_drills = `
 <div style="color:#0254B7" class="py-2">
 <span class="tbb iconCircle_nact  mr-2">&#x270B;</span>voor andere handigheid.<br>
 <span ><i class="icon material-icons orangeicon iconCircle_nact mr-2 mt-2">star_border</i></span>voor een oefening bewaren in favorieten.
 </div>
 `;
 
-const page_drills_html = `
+var page_drills_html = `
 <nav class="tabber tabber-bottom publish-tabs">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a onclick="arrow_back('#nav-drill');" class="nav-item nav-link active" id="nav-drill-tab" data-toggle="tab"

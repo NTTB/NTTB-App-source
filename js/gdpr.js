@@ -3,8 +3,8 @@
 program: NTTB App
 name: gdpr
 type: JS
-version: 0.17
-date: 2023-08-25
+version: 0.18
+date: 2024-03-25
 description: store and recive gdpr consents
 author: JOFTT
 
@@ -132,6 +132,7 @@ function page_config() {
     activate_tester(); // activate options for tester
     let str = "DWF: " + main_version + ' / Jacek Offierski';
     str += "<br>Scorebord: " + sb_version + ' / Jacek Offierski';
+
     prime_club_set();
     if (tester.includes(parseInt(localiSession.username))) str += '<br>Boot: ' + localStorage.getItem("bootver");
     $("#config_ver").html(str);
@@ -252,6 +253,30 @@ function do_clean_local_data(buttonIndex) {
 }
 
 /**
+ * confirmation for re-boot
+ */
+function device_clean_reboot() {
+    let message = "Nadat je op <strong>Opschonen</strong> hebt gedrukt, worden alle applicatiegegevens op dit apparaat opgeschoond en wordt de applicatie opnieuw geladen op dit apparaat. U hoeft niet opnieuw in te loggen.";
+    modal_notification(message, do_reboot, "APPARAAT OPSCHONEN", "Terug,Opschonen");
+}
+
+/**
+* clean local storage data and re-boot
+* 
+* @param {number} buttonIndex 1-back, 2-confirmed 
+*/
+function do_reboot(buttonIndex) {
+    if (buttonIndex == 2) {
+        localStorage.clear();
+        localStorage.setItem('nl_dwf_profile', JSON.stringify(profile_set));
+        localStorage.setItem("username", localiSession.username);
+        localStorage.setItem('nl_dwf_sessionInfo', JSON.stringify(localiSession));
+        localStorage.setItem('nl_dwf_loginStatus', "true");
+        boot();
+    }
+}
+
+/**
  * change language flip-flop
  */
 function change_language() {
@@ -272,9 +297,9 @@ function change_language() {
 
 }
 
-/***************** html as const to prevent cross origin protection **************************** */
+/***************** html  **************************** */
 
-const config_lan = {
+var config_lan = {
     "config1_lan": {
         0: "CHANGE LANGUAGE TO:",
         1: "TAAL WIJZIGEN NAAR:"
@@ -290,7 +315,7 @@ const config_lan = {
 };
 
 // config page
-const page_config_html = `
+var page_config_html = `
 <div id="page_config" class="card card-data-item">
     <div class="content-sticky-footer">
         <div id='nav-config-head'></div>
@@ -366,14 +391,10 @@ const page_config_html = `
             <div class="row mx-1 mt-3">
                 <h6 style="font-weight:bold;">APPARAATGEGEVENS OPRUIMEN</h6>
             </div>
-            <div onclick="clean_local_data()" class="row tdbutton mx-1">
-                <div class="col-12 tabszf pl-1"><i
-                        class="icon material-icons my-1 mr-2 tbm">cleaning_services</i>Apparaat
-                    opschonen</div>
+            <div onclick="device_clean_reboot()" class="row tdbutton mx-1">
+                <div class="col-12 tabszf pl-1"><i class="icon material-icons my-1 mr-2 tbm">cleaning_services</i>Apparaat opschonen</div>
             </div>
-            <div class="config_txt mx-1">Deze functie ruimt alle gegevens op die deze applicatie gebruikt binnen dit
-                apparaat. U wordt onmiddellijk na het opschonen uitgelogd.<br>LET OP: Deze functie verwijdert uw
-                applicatie-account niet. Dit is enkel een reset van de applicatie zelf.</div>
+            <div class="config_txt mx-1">Deze functie ruimt alle gegevens op die deze applicatie gebruikt binnen dit apparaat.<br>LET OP: Deze functie verwijdert uw applicatie-account niet. Dit is enkel een reset van de applicatie zelf.</div>
             <hr>
 
             <div class="row mx-1 mt-3">
@@ -396,7 +417,7 @@ const page_config_html = `
 `;
 
 // config when not log-in
-const page_config_html_nli = ` 
+var page_config_html_nli = ` 
 <div id="page_config" class="card card-data-item">
     <div class="content-sticky-footer">
         <div id='nav-config-head'></div>
@@ -417,13 +438,13 @@ const page_config_html_nli = `
 `;
 
 // page config self explain. No help.
-const help_config = ``;
+var help_config = ``;
 
 // GDPR page help
-const help_gdpr = `Als u ouder bent dan 16 jaar, dan kunt u via deze functie de toestemming rondom privacy aanpassen.<br>Past eerst de vinkjes aan en druk dan op de 'AKKOORD' knop nonderaan.<br>Voor meer informatie zie de privacy pagina op de <a href="https://www.nttb.nl/privacywet/" target="_blank">NTTB website</a>.`;
+var help_gdpr = `Als u ouder bent dan 16 jaar, dan kunt u via deze functie de toestemming rondom privacy aanpassen.<br>Past eerst de vinkjes aan en druk dan op de 'AKKOORD' knop nonderaan.<br>Voor meer informatie zie de privacy pagina op de <a href="https://www.nttb.nl/privacywet/" target="_blank">NTTB website</a>.`;
 
 // GDPR page
-const page_gdpr_html = `
+var page_gdpr_html = `
 <div id="page_gdpr" class="card card-data-item">
     <div id='nav-gdpr-head'></div>
     <div class="row pl-3 mx-0 mt-3">
