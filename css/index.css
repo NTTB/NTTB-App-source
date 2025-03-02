@@ -1,6 +1,8 @@
 * {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    touch-action: manipulation;
+    /* Allow all interaction except the extra's such as double-tap-to-zoom */
 }
 
 html,
@@ -510,6 +512,11 @@ canvas {
     vertical-align: bottom;
 }
 
+.tbi {
+    vertical-align: top;
+    font-size: 1.2rem !important;
+}
+
 .tbt {
     vertical-align: text-bottom !important;
     white-space: nowrap;
@@ -525,6 +532,11 @@ canvas {
 
 .tdc {
     text-align: center !important;
+}
+
+
+.td0 {
+    width: .0001% !important;
 }
 
 .td1 {
@@ -543,6 +555,10 @@ canvas {
     white-space: nowrap;
 }
 
+.td9 {
+    width: 99%;
+}
+
 .suline {
     text-align: left;
     background-color: rgba(0, 123, 255, 0.1);
@@ -551,6 +567,21 @@ canvas {
     border-top-right-radius: 0.25rem;
 }
 
+.brtinl {
+    border-top: 1px solid #007bff;
+    border-left: 1px solid #007bff;
+    border-bottom: 1px solid #007bff;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.brtinr {
+    border-top: 1px solid #007bff;
+    border-right: 1px solid #007bff;
+    border-bottom: 1px solid #007bff;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
 
 input[type=radio].with-font {
     border: 0;
@@ -694,13 +725,9 @@ input::-webkit-inner-spin-button {
     color: #10069F;
 }
 
-.adlist {
-    /*background-color: rgba(0, 123, 255, 0.1);*/
-    color: #10069F;
-}
-
 .iconleft {
     float: left;
+    width: 24px;
     /*margin-left: 0.25rem;*/
 }
 
@@ -796,6 +823,10 @@ input::-webkit-inner-spin-button {
     color: #331308;
 }
 
+.whiteicon {
+    color: white;
+}
+
 .greenicon {
     color: #00933E;
 }
@@ -826,6 +857,10 @@ input::-webkit-inner-spin-button {
 
 .grayicon {
     color: gray;
+}
+
+.sysicon {
+    color: #0254B7;
 }
 
 .bluetdbut {
@@ -1045,6 +1080,13 @@ table {
 }
 
 .fixtab table {
+    width: 100% !important;
+}
+
+.separtab {
+    border-spacing: 0 3px;
+    border-collapse: separate;
+    word-break: break-word;
     width: 100%;
 }
 
@@ -1073,6 +1115,10 @@ table {
 .tab_agenda td {
     padding: 0 !important;
     vertical-align: middle;
+}
+
+.tab_middle {
+    vertical-align: middle !important;
 }
 
 .tbotb {
@@ -1143,6 +1189,36 @@ table {
     border: solid 1px #F8622F;
     border-radius: .25rem;
     /*2px;*/
+}
+
+.tdbutton-c {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 2rem;
+    font-size: 1rem;
+    padding-left: .3rem;
+    padding-right: 0.3rem;
+    color: #F8622F;
+    background-color: white;
+    border: solid 1px #F8622F;
+    border-radius: .25rem;
+    display: inline;
+    text-wrap: nowrap;
+}
+
+.tdbutton-b {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 2rem;
+    font-size: 1rem;
+    padding-left: .3rem;
+    padding-right: 0.3rem;
+    color: #007bff;
+    background-color: white;
+    border: solid 1px #007bff;
+    border-radius: .25rem;
+    display: inline;
+    text-wrap: nowrap;
 }
 
 .tdbutton-g {
@@ -1228,27 +1304,17 @@ table {
 }
 
 .btn-rlnd {
-    border-radius: .25rem
-        /*5px*/
-        !important;
+    border-radius: .25rem !important;
 }
 
 .btn-rlleft {
-    border-bottom-left-radius: .25rem
-        /*5px*/
-        !important;
-    border-top-left-radius: .25rem
-        /*5px*/
-        !important;
+    border-bottom-left-radius: .25rem !important;
+    border-top-left-radius: .25rem !important;
 }
 
 .btn-rlright {
-    border-bottom-right-radius: .25rem
-        /*5px*/
-        !important;
-    border-top-right-radius: .25rem
-        /*5px*/
-        !important;
+    border-bottom-right-radius: .25rem !important;
+    border-top-right-radius: .25rem !important;
 }
 
 .btn-outline-primary:hover {
@@ -1307,6 +1373,16 @@ table {
     border-radius: .25rem
         /*15px*/
     ;
+}
+
+.tinframe {
+    border: 1px solid #10069F;
+    background-color: rgba(235, 237, 240, 0.1);
+    margin-left: .15rem;
+    padding-top: .5rem;
+    margin-right: .15rem;
+    padding-bottom: .5rem;
+    border-radius: .25rem;
 }
 
 .btn-poule {
@@ -1652,6 +1728,9 @@ table {
 
 .mymatbalk {
     background-color: aliceblue;
+    line-height: 1.2rem;
+    min-height: 40px;
+    align-content: center;
 }
 
 .mysrbalk {
@@ -1662,6 +1741,11 @@ table {
 .mynpcbalk {
     background-color: darkblue;
     color: white;
+}
+
+.myturbalk {
+    color: #212529;
+    background-color: #ffc107;
 }
 
 .bvinnas {
@@ -1844,3 +1928,30 @@ input[type=number].score_f:focus {
     background-color: withe;
     background-image: linear-gradient(to bottom right, white 65%, #007bff) !important;
 }*/
+
+.tintr {
+    background-color: aliceblue;
+    border-top: 1px solid #007bff;
+}
+
+
+.tin_blue {
+    font-weight: 700;
+    color: #10069F;
+    white-space: nowrap;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.wss_date_balk {
+    color: white;
+    background-color: #007bff;
+    text-align: center;
+}
+
+.teamrat {
+    color: #666;
+    font-size: .7rem;
+    line-height: .7rem;
+    font-family: monospace;
+}

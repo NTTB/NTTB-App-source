@@ -3,8 +3,8 @@
 program: NTTB App
 name: drills
 type: JS
-version: 0.24
-date: 2023-05-12
+version: 0.25
+date: 2024-01-02
 description: page and functions for training drills
 author: JOFTT
 
@@ -1005,3 +1005,13 @@ var page_drills_html = `
 `;
 
 /********************************** html drills end ***************************************** */
+
+/********************************** strokes ************************************************* */
+
+soort_d_order = [9, 1, 7, 2, 8, 6, 4, 5, 10, 3];
+strokes_drills = ['', 'een slag', 'FH service', 'BH service', 'FH zijspin service', 'BH zijspin service', 'FH schuif', 'BH schuif', 'FH rally', 'BH rally', 'FH contra', 'BH contra', 'FH smash', 'BH smash', 'FH topspin', 'BH topspin', 'optillen', 'FH topspin', 'FH blok', 'BH blok', 'agressief blok', 'FH contra', 'BH contra', 'BH topspin', 'FH snel topspin', 'BH snel topspin', 'zij met top spin', 'FH ballonbal', 'BH ballonbal', 'FH flip', 'BH flip', 'FH verdediging', 'BH verdediging', 'FH drop', 'BH drop', 'drop', 'BH of FH schuif', 'backspin service', 'topspin service', 'service zonder spin', 'topspin', 'backspin', 'contra'];
+cat_drills = { 1: 'aanvallend', 2: 'defensief', 3: 'gevarieerde', 4: 'algemeen', 9: 'dubbelspel', 10: 'universeel' };
+level_drills = { 1: 'iedereen', 2: 'rating 500+', 3: 'rating 1000+', 4: 'rating 1500+', 5: 'rating 2000+' };
+soort_drills = { 1: 'techniek', 2: 'voetenwerk', 3: 'complex', 4: 'backspin', 5: 'flip', 6: 'topspin', 7: 'tactiek', 8: 'verdediging', 9: 'inspelen', 10: 'smash' };
+
+/********************************** strokes end ******************************************** */

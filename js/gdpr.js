@@ -3,8 +3,8 @@
 program: NTTB App
 name: gdpr
 type: JS
-version: 0.18
-date: 2024-03-25
+version: 0.19
+date: 2024-09-19
 description: store and recive gdpr consents
 author: JOFTT
 
@@ -34,8 +34,8 @@ function click_privacy() {
             gdpr: gdpr
         });
 
-        req_gdpr.done(function (data) {
-            retApp = JSON.parse(data);
+        req_gdpr.done(data_gdpr => {
+            let retApp = JSON.parse(data_gdpr);
             if (ok_REST(retApp.error, retApp.username)) {
                 $("#success_txtq").html("AVG is succesvol geregistreerd!");
                 $(".notification.top.green").notify(3000);
@@ -70,6 +70,7 @@ function page_gdpr(fl = false) {
     update_profile(true, false); // update fl_aconsent status now and execute mng_gdpr_b()   
     $("#p_name").html(profile_set.name);
     $("#p_bnr").html(localiSession.username);
+    arrow_deep = false;
 
     if (fl) { // don't go back to TIN
         arrow_tab = JSON.parse(localStorage.getItem("nl_dwf_back_arrow"));
@@ -183,6 +184,7 @@ function prime_club_set() {
     } else {
         $("#prime_club_config").hide();
     }
+
 }
 
 function set_primclub(x) {
@@ -212,8 +214,8 @@ function do_remove_account(buttonIndex) {
             ver: push_version
         });
 
-        req_del.done(function (data) {
-            retApp = JSON.parse(data);
+        req_del.done(function (data_del) {
+            let retApp = JSON.parse(data_del);
             if (ok_REST(retApp.error, retApp.username)) {
                 localStorage.clear();
                 if (navigator.app != null) navigator.app.exitApp(); // Android exit app
@@ -261,33 +263,19 @@ function device_clean_reboot() {
 }
 
 /**
-* clean local storage data and re-boot
-* 
-* @param {number} buttonIndex 1-back, 2-confirmed 
-*/
-function do_reboot(buttonIndex) {
-    if (buttonIndex == 2) {
-        localStorage.clear();
-        localStorage.setItem('nl_dwf_profile', JSON.stringify(profile_set));
-        localStorage.setItem("username", localiSession.username);
-        localStorage.setItem('nl_dwf_sessionInfo', JSON.stringify(localiSession));
-        localStorage.setItem('nl_dwf_loginStatus', "true");
-        boot();
-    }
-}
-
-/**
  * change language flip-flop
  */
 function change_language() {
     language = (int(language) == 0) ? 1 : 0;
-    let req_club = call_REST('put_dwfsetting', {
+    localStorage.setItem("nl_dwf_lan", language);
+    profile_set.lan = language.toString();
+    let req_lan = call_REST('put_dwfsetting', {
         user: localiSession.username,
         lan: language
     });
 
-    req_club.done(data => {
-        let retApp = JSON.parse(data);
+    req_lan.done(data_lan => {
+        let retApp = JSON.parse(data_lan);
         if (retApp.error === "OK") {
             $("#config1_lan").html(config_lan.config1_lan[language]);
             $("#config2_lan").html(config_lan.config2_lan[language]);
@@ -309,8 +297,8 @@ var config_lan = {
         1: "Nederlands"
     },
     "config3_lan": {
-        0: "Language will be changed only for the <strong>Event Scoresheet</strong> function.",
-        1: "Deze functie verandert alleen de taal voor het <strong>Digitaal Wedstrijdformulier</strong>."
+        0: "Language will be changed only for <strong>Event Scoresheet (DWF)</strong>, <strong>Planning</strong> and <strong>Tournament Registrations</strong> function.",
+        1: "Deze functie verandert alleen de taal voor <strong>Digitaal Wedstrijdformulier (DWF)</strong>, <strong>Planning</strong> en <strong>Toernooi Inschrijvingen</strong>."
     }
 };
 
@@ -324,7 +312,7 @@ var page_config_html = `
             <div class="row mx-1 mb-1">
                 <div style="font-weight:bold;">PRIVACY INSTELLINGEN</div>
             </div>
-            <div onclick="page_gdpr()" class="row tdbutton mx-1">
+            <div onclick="page_gdpr(0)" class="row tdbutton mx-1">
                 <div class="col-12 tabszf pl-1"><i
                         class="icon material-icons my-1 mr-2 tbm">assignment_turned_in</i>Toestemmingsverklaring
                     aanpassen

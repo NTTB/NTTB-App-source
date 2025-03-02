@@ -1598,6 +1598,7 @@ a:hover {
     margin-bottom: 15px;
     background-color: white;
     border: 0;
+    padding: 3px 3px 3px 3px;
 }
 
 .md .card {
